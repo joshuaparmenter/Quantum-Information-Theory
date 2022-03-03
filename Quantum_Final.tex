@@ -1081,11 +1081,112 @@ P_\downarrow (t) = |i\sin{\frac{\omega t}{2}}|^2 = \sin^2{\frac{\omega t}{2}}
 Same thing as the one above, but notice that this one is picking out the sin in $\psi$ instead using the other diagonal term in the P matrix.\\  
 \item Find the expectation value under many measurements of $\sigma_z$:\\
 \begin{equation}
-\sigma_x = 
+\begin{split}
+<\sigma_x>_\psi &= \braket{\psi(t)|\sigma_z\psi(t)} = (+1)(\cos^2{\frac{\omega t}{2}}) +  (-1)(\sin^2{\frac{\omega t}{2}})\\
+&= (\cos^2{\frac{\omega t}{2}}) - (\sin^2{\frac{\omega t}{2}})
+\end{split}
 \end{equation}
+As you can see, we have set matrix $\sigma_z$ against vector $\psi(t)$, giving us the overall expected outcome if we measured wave function $\psi(t)$ in the $\sigma_z$ "direction". 
 \end{itemize}
 \end{example}
 
+\pagebreak
+
+\subsection{Multipartite Physical States}
+\subsubsection{Tensor Products}
+\begin{definition}{Tensor Product}
+Consider vector space H with an inner product $H = H_1 \otimes H_2$ where $\otimes$ is the \textbf{tensor product} combining $H_1, H_2$ in such a way that things in $H_1$ effect $H_2$ and vice versa.  
+\end{definition}
+A general vector of H is a linear combination of vectors $\{\ket{v_1}\otimes\ket{v_2}:\ket{v_1}\in H_1, \ket{v_2}\in H_2\}$\\
+
+Now to take the tensor of two matrices where $A\in M_{mn}, B\in M_{pq}$:\\
+\begin{equation}
+A \otimes B = A = \begin{bmatrix} 
+    			A_{11}B & A_{12}B & \dots & A_{1n}B \\
+    			A_{21}B & A_{22}B &       &         \\
+    			\vdots  & \vdots & \ddots & \vdots  \\
+    			A_{m1}  &  \dots &      & A_{KK} 
+    			\end{bmatrix} \in M_{(mp)(nq)}
+\end{equation}
+This equation may look overwhelming at first glance, but it can be seen that all it is doing is applying the \textit{elements} of A to the \textit{matrix} B.  This means that you will get a matrix that any change in A affects B, and vice versa just like we hoped.  \\
+
+\begin{example}
+\begin{equation}
+\sigma_x \otimes i\sigma_y = \bmat{0 &1\\ 1 &0} \otimes \bmat{0 &1\\ -1 &0} = \bmat{\bmat{0 &0\\ 0 &0} &\bmat{0 &1\\ -1 &0}\\ \bmat{0 &1\\ -1 &0} &\bmat{0 &0\\ 0 &0}}
+\end{equation}
+\textit{Understand that this is actually just a 4X4 matrix, and was only written with the extra brakets in order to provide clarity.}
+\end{example}
+
+\paragraph{Rules of tensor products} Now that we have learned a little about tensor products, lets learn some basic rules that apply to this operation:
+\begin{enumerate}
+\label{def:rule} \item  $(\lambda A) \otimes B = A \otimes (\lambda B), \quad \lambda \in \C$ \textit{(Scaling one matrix affects the other and vise verse)}
+\item In general $A \otimes B \neq B \otimes A$ \textit{(Generally noncommutative, not always true though)} 
+\item $(A \otimes B)(C \otimes D) = AC \otimes BD$ \textit{(Distributivity law)}
+\item $A \otimes (B + C) = (A \otimes B) + (A \otimes C)$ \textit{(Another distributivity law)}
+\item $(A \otimes B) + (C \otimes D) \neq (A + C) \otimes (B + D)$ \textit{(Nonassociative)}
+\item $(A \otimes B)^\dagger = A^\dagger \otimes B^\dagger$ \textit{(Daggers are distributive)}
+\item If $A$ and $B$ are invertible, $(A \otimes B)^{-1} = A^{-1} \otimes B^{-1}$ \textit{(Inverses are distributive)}
+\end{enumerate}
+
+\pagebreak
+
+
+\begin{example} [Tensor product of two ket vectors]
+
+\begin{align*}
+&\ket{1} \otimes \ket{1} =: \ket{11} = \bmat{1\\0} \otimes \bmat{0\\1} = \bmat{1\\0\\0\\0}\\
+&\ket{1} \otimes \ket{2} =: \ket{12} = \bmat{0\\1} \otimes \bmat{1\\0} = \bmat{0\\1\\0\\0}\\
+&\ket{2} \otimes \ket{1} =: \ket{21} = \bmat{1\\0} \otimes \bmat{1\\0} = \bmat{0\\0\\1\\0}\\
+&\ket{2} \otimes \ket{2} =: \ket{22} = \bmat{0\\1} \otimes \bmat{0\\1} = \bmat{0\\0\\0\\1}\\
+\end{align*}
+\begin{center}
+\textit{Note: $\{\ket{11}, \ket{12}, \ket{21}, \ket{22}\}$ forms a basis for $\C^4$ but these vectors live in $\C^2 \otimes \C^2 \approx \C^4$}
+\end{center}
+\end{example}
+This example showed a property of tensor products in which if $\ket{v} \in \C^m, \ket{w} \in \C^n$, then $\ket{wv} := \ket{v} \otimes \ket{w} \in \C^m \otimes \C^n \approx \C^{mn}$, so the result is the two dimensions multiplied.
+
+\pagebreak
+Since we have done so much fun stuff this chapter, lets finish it off with something fun, a proof!
+\begin{theorem} [Tensor Product Basis]\leavevmode\linebreak
+If $H_1$ has ONB $\varepsilon_1 = \{\ket{e_{1,1}}, \ket{e_{1,2}}, \dots, \ket{e_{1,m}}\}$ and $H_2$ has ONB $\varepsilon_1 = \{\ket{e_{2,1}}, \ket{e_{2,2}}, \dots, \ket{e_{2,n}}\}$
+\begin{center}
+\textit{Note: First subscript is the basis where the vector is formed.}\\
+\end{center}
+Then $H := H_1 \otimes H_2$ has an orthonormal basis $\{\ket{e_{1,i}} \otimes \ket{e_{2,i}} : 1 \leq i \leq m, 1 \leq j \leq n \}$
+\begin{proof} Let $\sum_p \lambda_p \ket{v_p} \otimes \ket{w_p} \in H$\\
+It suffices to show that just one elementary tensor $ket{v_p} \otimes \ket{w_p}$ belongs to Span($\varepsilon$), so since $\varepsilon_1$ is a basis for $H_1$ and $ket{v_p} \in H_1$, we can write 
+\begin{equation*}
+\ket{v_p} = c_1\ket{e_{1,1}} + c_2\ket{e_{1,2}} + \dots + c_m\ket{e_{1,m}} \text{for some } c_1, \dots, c_m \in \C  
+\end{equation*}
+\begin{equation*}
+\ket{w_p} = d_1\ket{e_{2,1}} + d_2\ket{e_{2,2}} + \dots + d_n\ket{e_{2,n}} \text{for some } d_1, \dots, d_n \in \C  
+\end{equation*}
+
+\begin{align*}
+\text{So} \ket{v_p} \otimes \ket{w_p} &= (c_1\ket{e_{1,1}} + c_2\ket{e_{1,2}} + \dots + c_m\ket{e_{1,m}}) \otimes (d_1\ket{e_{2,1}} + d_2\ket{e_{2,2}} + \dots + d_n\ket{e_{2,n}})\\
+&= (\sum_{i=1}^{m} c_i\ket{e_{1,i}}) \otimes (\sum_{j=1}^{n} d_j\ket{e_{2,j}})\\
+&= \sum_{i=1}^{m}\sum_{j=1}^{n} c_i\ket{e_{1,i}} \otimes d_j\ket{e_{2,j}}\\
+&= \sum_{i=1}^{m}\sum_{j=1}^{n} c_i d_j (\ket{e_{1,i}} \otimes \ket{e_{2,j}}) \in Span(\varepsilon) \hyperref[def:rule]{\textbf{ by tensor product fact 1}}\\
+\end{align*}
+
+\textbf{What is the inner product of H?}\\
+\begin{align*}
+&\text{let } \ket{v_1}, \ket{w_1} \in H_1 \text{ and} \ket{v_2}, \ket{w_2} \in H_2\\
+\braket{{\ket{v_1} \otimes \ket{v_2}}|{\ket{w_1} \otimes \ket{w_2}}} &\coloneqq \braket{v_1v_2|w_1w_2}\\
+&= \braket{v_1|w_1}_{H_1} \braket{v_2|w_2}_{H_2} \textit{Inner products of first factors form first set and same for second respectively.}
+\end{align*}
+
+Finally we must check that $\varepsilon$ is an orthonormal set.
+\begin{equation}
+\begin{split}
+&\text{Let }\ket{e_{1,i}} \otimes \ket{e_{2,j}}, \ket{e_{1,k}} \otimes \ket{e_{2,l}} \in \varepsilon\\
+&\text{Then }\braket{e_{1,i}e_{2,j}|e_{1,k}e_{2,l}} = \braket{e_{1,i}|e_{1,k}}_{H_1} * \braket{e_{2,j}|e_{2,l}}_{H_2}\\
+&\text{That means this breaks down to when i=k and j=l otherwise they are orthogonal so }\\
+&= \norm{\ket{e_{1,i}e_{2,j}}} \text{ which must be 1 since they are parallel so $\varepsilon$ is an orthonormal set.}
+\end{split}
+\end{equation}
+\end{proof}
+\end{theorem}
 
 
 
