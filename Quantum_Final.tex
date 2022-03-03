@@ -1,0 +1,1104 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry} 
+\geometry{letterpaper}   
+
+
+\usepackage{amssymb,amsfonts,amsmath,bbm,mathrsfs,stmaryrd, mathtools}
+\usepackage{xcolor}
+\usepackage{url}
+\usepackage{dsfont}
+\usepackage{enumerate}
+\usepackage{enumitem}
+\usepackage{tikz-cd}
+\usetikzlibrary{cd}
+
+%\usepackage{parskip}
+
+\usepackage[colorlinks,
+             linkcolor=black!75!red,
+             citecolor=blue,
+             pdftitle={},
+             pdfauthor={},
+             pdfproducer={pdfLaTeX},
+             pdfpagemode=None,
+             bookmarksopen=true
+             bookmarksnumbered=true]{hyperref}
+
+\usepackage{tikz}
+\usetikzlibrary{cd,arrows,calc,decorations.pathreplacing,decorations.markings,intersections,shapes.geometric,through,fit,shapes.symbols,positioning,decorations.pathmorphing}
+
+\usepackage{braket}
+
+\renewcommand{\theequation}{\thesection.\arabic{equation}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% Theorems and references %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\usepackage[amsmath,thmmarks,hyperref]{ntheorem}
+\usepackage{cleveref}
+
+\creflabelformat{enumi}{#2(#1)#3}
+
+\crefname{section}{Section}{Sections}
+\crefformat{section}{#2Section~#1#3} 
+\Crefformat{section}{#2Section~#1#3} 
+
+\crefname{subsection}{\S}{\S\S}
+\crefformat{subsection}{#2\S#1#3} 
+\Crefformat{subsection}{#2\S#1#3} 
+
+\theoremstyle{plain}
+
+\newtheorem{lemma}{Lemma}[section]
+\newtheorem{proposition}[lemma]{Proposition}
+\newtheorem{corollary}[lemma]{Corollary}
+\newtheorem{theorem}[lemma]{Theorem}
+\newtheorem{conjecture}[lemma]{Conjecture}
+\newtheorem{question}[lemma]{Question}
+\newtheorem{assumption}[lemma]{Assumption}
+
+
+\theoremstyle{nonumberplain}
+\newtheorem{theoremN}{Theorem}
+\newtheorem{propositionN}{Proposition}
+\newtheorem{corollaryN}{Corollary}
+
+
+\theoremstyle{plain}
+\theorembodyfont{\upshape}
+\theoremsymbol{\ensuremath{\blacklozenge}}
+
+\newtheorem{definition}[lemma]{Definition}
+\newtheorem{example}[lemma]{Example}
+\newtheorem{remark}[lemma]{Remark}
+\newtheorem{convention}[lemma]{Convention}
+\newtheorem{exercise}[lemma]{Exercise}
+
+\crefname{definition}{definition}{definitions}
+\crefformat{definition}{#2definition~#1#3} 
+\Crefformat{definition}{#2Definition~#1#3} 
+
+\crefname{ex}{example}{examples}
+\crefformat{example}{#2example~#1#3} 
+\Crefformat{example}{#2Example~#1#3} 
+
+\crefname{remark}{remark}{remarks}
+\crefformat{remark}{#2remark~#1#3} 
+\Crefformat{remark}{#2Remark~#1#3} 
+
+\crefname{convention}{convention}{conventions}
+\crefformat{convention}{#2convention~#1#3} 
+\Crefformat{convention}{#2Convention~#1#3} 
+
+\crefname{exercise}{exercise}{exercises}
+\crefformat{exercise}{#2exercise~#1#3} 
+\Crefformat{exercise}{#2Exercise~#1#3} 
+
+
+
+\crefname{lemma}{lemma}{lemmas}
+\crefformat{lemma}{#2lemma~#1#3} 
+\Crefformat{lemma}{#2Lemma~#1#3} 
+
+\crefname{proposition}{proposition}{propositions}
+\crefformat{proposition}{#2proposition~#1#3} 
+\Crefformat{proposition}{#2Proposition~#1#3} 
+
+\crefname{corollary}{corollary}{corollaries}
+\crefformat{corollary}{#2corollary~#1#3} 
+\Crefformat{corollary}{#2Corollary~#1#3} 
+
+\crefname{theorem}{theorem}{theorems}
+\crefformat{theorem}{#2theorem~#1#3} 
+\Crefformat{theorem}{#2Theorem~#1#3} 
+
+\crefname{assumption}{assumption}{Assumptions}
+\crefformat{assumption}{#2assumption~#1#3} 
+\Crefformat{assumption}{#2Assumption~#1#3} 
+
+\crefname{equation}{}{}
+\crefformat{equation}{(#2#1#3)} 
+\Crefformat{equation}{(#2#1#3)}
+
+\theoremstyle{nonumberplain}
+\theoremsymbol{\ensuremath{\blacksquare}}
+
+\newtheorem{proof}{Proof.}
+\newtheorem{solution}{Solution.}
+\newcommand\pf[1]{\newtheorem{#1}{Proof of \Cref{#1}.}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%% simple math operators %%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\DeclareMathOperator{\id}{id}
+\DeclareMathOperator{\End}{\mathrm{End}}
+\DeclareMathOperator{\pr}{\mathrm{Prob}}
+\DeclareMathOperator{\orb}{\mathrm{Orb}}
+
+
+\DeclareMathOperator{\cact}{\cat{CAct}}
+\DeclareMathOperator{\wact}{\cat{WAct}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% align* numbering %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\numberthis{\addtocounter{equation}{1}\tag{\theequation}}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% user macros
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% below are many macros
+% be careful...
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% misc (should not need to touch) %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand\ol{\overline}
+\newcommand\wt{\widetilde}
+
+%
+\newcommand{\define}[1]{{\em #1}}
+\newcommand\1{{\bf 1}}
+\newcommand{\cat}[1]{\textsc{#1}}
+\newcommand\mathify[2]{\newcommand{#1}{\cat{#2}}}
+\newcommand\spr[1]{\cite[\href{https://stacks.math.columbia.edu/tag/#1}{Tag {#1}}]{stacks-project}}
+\newcommand{\qedhere}{\mbox{}\hfill\ensuremath{\blacksquare}}
+
+
+\renewcommand{\square}{\mathrel{\Box}}
+\newcommand\Section[1]{\section{#1}\setcounter{lemma}{0}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%% math fonts
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+% math blackboard font
+
+\newcommand\bb[1]{{\mathbb #1}} 
+
+\newcommand\bA{{\mathbb A}}
+\newcommand\bB{{\mathbb B}}
+\newcommand\bC{{\mathbb C}}
+\newcommand\bD{{\mathbb D}}
+\newcommand\bE{{\mathbb E}}
+\newcommand\bF{{\mathbb F}}
+\newcommand\bG{{\mathbb G}}
+\newcommand\bH{{\mathbb H}}
+\newcommand\bI{{\mathbb I}}
+\newcommand\bJ{{\mathbb J}}
+\newcommand\bK{{\mathbb K}}
+\newcommand\bL{{\mathbb L}}
+\newcommand\bM{{\mathbb M}}
+\newcommand\bN{{\mathbb N}}
+\newcommand\bO{{\mathbb O}}
+\newcommand\bP{{\mathbb P}}
+\newcommand\bQ{{\mathbb Q}}
+\newcommand\bR{{\mathbb R}}
+\newcommand\bS{{\mathbb S}}
+\newcommand\bT{{\mathbb T}}
+\newcommand\bU{{\mathbb U}}
+\newcommand\bV{{\mathbb V}}
+\newcommand\bW{{\mathbb W}}
+\newcommand\bX{{\mathbb X}}
+\newcommand\bY{{\mathbb Y}}
+\newcommand\bZ{{\mathbb Z}}
+
+% math script font
+
+\newcommand\cA{{\mathcal A}}
+\newcommand\cB{{\mathcal B}}
+\newcommand\cC{{\mathcal C}}
+\newcommand\cD{{\mathcal D}}
+\newcommand\cE{{\mathcal E}}
+\newcommand\cF{{\mathcal F}}
+\newcommand\cG{{\mathcal G}}
+\newcommand\cH{{\mathcal H}}
+\newcommand\cI{{\mathcal I}}
+\newcommand\cJ{{\mathcal J}}
+\newcommand\cK{{\mathcal K}}
+\newcommand\cL{{\mathcal L}}
+\newcommand\cM{{\mathcal M}}
+\newcommand\cN{{\mathcal N}}
+\newcommand\cO{{\mathcal O}}
+\newcommand\cP{{\mathcal P}}
+\newcommand\cQ{{\mathcal Q}}
+\newcommand\cR{{\mathcal R}}
+\newcommand\cS{{\mathcal S}}
+\newcommand\cT{{\mathcal T}}
+\newcommand\cU{{\mathcal U}}
+\newcommand\cV{{\mathcal V}}
+\newcommand\cW{{\mathcal W}}
+\newcommand\cX{{\mathcal X}}
+\newcommand\cY{{\mathcal Y}}
+\newcommand\cZ{{\mathcal Z}}
+
+% math frak font
+
+\newcommand\fA{{\mathfrak A}}
+\newcommand\fB{{\mathfrak B}}
+\newcommand\fC{{\mathfrak C}}
+\newcommand\fD{{\mathfrak D}}
+\newcommand\fE{{\mathfrak E}}
+\newcommand\fF{{\mathfrak F}}
+\newcommand\fG{{\mathfrak G}}
+\newcommand\fH{{\mathfrak H}}
+\newcommand\fI{{\mathfrak I}}
+\newcommand\fJ{{\mathfrak J}}
+\newcommand\fK{{\mathfrak K}}
+\newcommand\fL{{\mathfrak L}}
+\newcommand\fM{{\mathfrak M}}
+\newcommand\fN{{\mathfrak N}}
+\newcommand\fO{{\mathfrak O}}
+\newcommand\fP{{\mathfrak P}}
+\newcommand\fQ{{\mathfrak Q}}
+\newcommand\fR{{\mathfrak R}}
+\newcommand\fS{{\mathfrak S}}
+\newcommand\fT{{\mathfrak T}}
+\newcommand\fU{{\mathfrak U}}
+\newcommand\fV{{\mathfrak V}}
+\newcommand\fW{{\mathfrak W}}
+\newcommand\fX{{\mathfrak X}}
+\newcommand\fY{{\mathfrak Y}}
+\newcommand\fZ{{\mathfrak Z}}
+
+\newcommand\fa{{\mathfrak a}}
+\newcommand\fb{{\mathfrak b}}
+\newcommand\fc{{\mathfrak c}}
+\newcommand\fd{{\mathfrak d}}
+\newcommand\fe{{\mathfrak e}}
+\newcommand\ff{{\mathfrak f}}
+\newcommand\fg{{\mathfrak g}}
+\newcommand\fh{{\mathfrak h}}
+%\newcommand\fi{{\mathfrak i}}
+\newcommand\fj{{\mathfrak j}}
+\newcommand\fk{{\mathfrak k}}
+\newcommand\fl{{\mathfrak l}}
+\newcommand\fm{{\mathfrak m}}
+\newcommand\fn{{\mathfrak n}}
+\newcommand\fo{{\mathfrak o}}
+\newcommand\fp{{\mathfrak p}}
+\newcommand\fq{{\mathfrak q}}
+\newcommand\fr{{\mathfrak r}}
+\newcommand\fs{{\mathfrak s}}
+\newcommand\ft{{\mathfrak t}}
+\newcommand\fu{{\mathfrak u}}
+\newcommand\fv{{\mathfrak v}}
+\newcommand\fw{{\mathfrak w}}
+\newcommand\fx{{\mathfrak x}}
+\newcommand\fy{{\mathfrak y}}
+\newcommand\fz{{\mathfrak z}}
+
+
+\newcommand\fgl{\mathfrak{gl}}
+\newcommand\fsl{\mathfrak{sl}}
+\newcommand\fsp{\mathfrak{sp}}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% QIT useful commands %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\newcommand{\bmat}[1]{\begin{bmatrix*} #1 \end{bmatrix*}} % matrices
+\newcommand{\setovecs}[1]{\lb \ket{v_1}, \ldots, \ket{v_{#1}}\rb} % set of vectors
+\newcommand{\listovecs}[2]{\ket{{#1}_1}, \ldots, \ket{{#1}_{#2}}} % set list of NAMED vectors
+\newcommand{\Tr}{\text{Tr}} % trace v1
+\newcommand{\tr}{\text{tr}} % trace v2
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% standard mitch commands %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%% Standard Sets
+\newcommand{\Q}{\mathbb{Q}} % rationals
+\newcommand{\R}{\mathbb{R}} % reals
+\newcommand{\Z}{\mathbb{Z}} % integers
+\newcommand{\C}{\mathbb{C}} % complex numbers
+\newcommand{\N}{\mathbb{N}} % natural numbers
+\newcommand{\F}{\mathbb{F}} % arbitrary field
+\newcommand{\T}{\mathbb{T}} % Unit circle
+\newcommand{\D}{\mathbb{D}} % Open unit disc
+
+%% Arrows
+\newcommand{\ra}{\rightarrow}
+\newcommand{\Ra}{\Rightarrow}
+\newcommand{\La}{\Leftarrow}
+
+%% Greek
+\newcommand{\al}{\alpha}
+\newcommand{\ep}{\varepsilon} % epsilon
+\newcommand{\es}{\varnothing} % empty set
+
+
+%% Brackets
+\newcommand{\<}{\left\langle} 
+\renewcommand{\>}{\right\rangle}
+\newcommand{\lp}{\left(}
+\newcommand{\rp}{\right)}
+\newcommand{\lv}{\left\lvert}
+\newcommand{\rv}{\right\rvert}
+\newcommand{\lb}{\left\{}
+\newcommand{\rb}{\right\}}
+\newcommand{\lan}{\left\langle}
+\newcommand{\ran}{\right\rangle}
+
+%% Algebra
+\newcommand{\isom}{\cong} %Isomorphic
+\newcommand{\nsub}{\trianglelefteq} %Normal Subgroup
+\newcommand{\semi}{\rtimes} %Semi-Direct Product
+\newcommand{\Aut}{\text{Aut}} % automorphism group
+\newcommand{\op}{{\text{op}}} % opposite algebra
+
+%% Linear Algebra
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert} % norm
+\newcommand{\inp}[2]{\left\langle#1, #2\right\rangle} % inner product
+\newcommand{\spn}[1]{\text{Span}\lp #1\rp} % span
+\newcommand{\cspn}[1]{\overline{\text{Span}}\lp #1\rp} % closed span
+
+%% Analysis
+\newcommand{\abs}[1]{\left\lvert #1 \right\rvert} % absolute value
+\newcommand{\supp}[1]{\text{supp}\lp #1\rp} % support
+\newcommand{\co}{\text{co}} % convex hull
+\newcommand{\cl}[1]{\overline{#1}} % closure
+\DeclareMathOperator*{\esssup}{ess\,sup} % essential supremum
+
+%% Complex 
+\newcommand{\Res}[2]{\text{Res}\lp #1, #2\rp} %Residue of a FUNCTION at a POINT
+\newcommand{\Ind}{\text{Ind}} % index
+\newcommand{\re}[1]{\text{Re}(#1)}  % real part
+\newcommand{\im}[1]{\text{Im}(#1)} % complex part
+
+%% XPatch
+\usepackage{xpatch}
+\xpatchcmd{\qed}{\hfill}{}{}{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%% ACTUAL PREAMBLE %%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\title{Introduction to Quantum Information Theory}
+\author{Joshua Parmenter}
+\date{19 Jan, 2021}
+
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Will finish this when i actually know what the jeebuz is going on in the class. 
+\end{abstract}
+
+\tableofcontents
+\pagebreak
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Where the work happens...
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Vectors and Vector Spaces}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Vector Spaces}
+In modern mathematics, an area of importance is first defining what field the problems are being asked in.  When speaking on vectors and vector spaces, it is easiest to work in two main fields of numbers.
+
+\subsubsection{Relevant Vector Spaces}
+\begin{enumerate}
+	\item $\R$ : \textbf{All Real Numbers} $(\infty, -\infty)$ \\
+	
+	This includes all real numbers from zero to infinity, something of note is that this number field is \textbf{not algebraically closed}, meaning not all numbers can be produced from combinations of other numbers in the field.  An example of this is $x^2 + 1 = 0$, meaning $x = 1*i$
+	
+	\item $\C$ : \textbf{All Complex Numbers} \\
+	
+	This number field \textbf{is algebraically closed}.  This means that every possible number in the field can be produced from combinations of other numbers in the field.  This makes sense as two complex numbers multiplied together can produce 1. A completely real number 2. A complex number with a real and imaginary component 3. A complex number with only an imaginary component.
+\end{enumerate}
+
+\subsection{Complex Number Operations}
+\textit{In the following sections, we will make the assumption $a, b, c, d, e \in \R$}
+	\subsubsection{Addition}	
+\begin{equation}
+(a + bi) + (c + di) = (a+c) + (b+d)i 
+\end{equation}
+
+\subsubsection{Multiplication}	
+\begin{equation}
+(a+bi) * (c + di) = (ac+adi) + (bci-bd)
+\end{equation}
+
+\subsubsection{Conjugation}	
+\begin{equation}
+\overline{a + bi} = (a + bi)^* = a - bi
+\end{equation}
+
+\subsubsection{Modulus}	
+\begin{equation}
+|z| = |a + bi| = \sqrt[]{a^2 + b^2} 
+\end{equation}
+		
+	
+		
+\subsection{Common Vector Space Notation and Definitions}
+This section is to lay out some of the most important pieces of notation and definitions for the complex mathematics required for this course.  
+\subsubsection{Linear Algebra Terms}
+\begin{definition}
+An element $\ket{v}\in \C^n$ is called a \textbf{(ket) vector} and is expressed as a \textbf{column} of $n$ complex numbers. The integer $n$ is called the \textbf{dimension} of the vector space $\C^n.$
+\end{definition}
+
+\begin{definition}
+A \textbf{linear combination} of ${\ket{v_1}, ... , \ket{v_k}} \subset \C^n$ is just a single vector in the form $\lambda_1\ket{v_1} + \lambda_2\ket{v_2} + ... + \lambda_k\ket{v_k}$ for some $\lambda_1, \lambda_2, ..., \lambda_k  \in \C$.
+\label{def:Combination}
+\end{definition}
+
+
+\begin{example}
+Create a \textbf{linear combination} of $\ket{v_1} = \bmat{i\\1}$, $\ket{v_2} = \bmat{-1\\i + 1}$\\
+To create a linear combination, we simply must add two complex number constants $\lambda_1, \lambda_2$ in the form shown in  \hyperref[def:Combination]{Definition 1.2}, $\mathbf{\lambda_1\ket{v_1} + \lambda_2\ket{v_2}}$. \\
+\begin{equation*} 
+\begin{split}
+\lambda_{final}\ket{v_{final}} = \lambda_1\ket{v_1} + \lambda_2\ket{v_2} \qquad\qquad    
+&\lambda_1 = 1\\
+&\lambda_2 = 3 + 2i
+\end{split}
+\end{equation*}\\
+
+\begin{equation}
+\begin{split}
+\lambda_{final}\ket{v_{final}} & = 1\bmat{i\\ 1} + (3 + 2i) \bmat{-1\\ i + 1}\\
+& = \bmat{i\\ 1} + \bmat{-3 - 2i\\ 1 + 5i}\\
+& = \bmat{-3 - i\\ 3 + 5i}
+\end{split} 
+\end{equation}
+\end{example}
+
+\begin{definition}
+\label{def:Independence}
+Two vectors $\ket{v_1}, \ket{v_2}$ are \textbf{linearly independent} if the only way to create the 0 vector from a linear combination is through setting all complex constants $\lambda_1, \lambda_2, ... , \lambda_k$ to zero in the linear combination formula described in \hyperref[def:Combination]{Definition 1.2}.
+\end{definition}
+
+\begin{definition}
+A \textbf{subspace} of complex plane $\C$ is a set $\mathbf{M} \in \C^n$ that satisfies three properties:
+\begin{itemize}
+\item $\ket{0} \in \mathbf{M}$
+\item $\ket{v} + \ket{u} \in  \mathbf{M}$ for all $\ket{v}, \ket{u}$
+\item $c\ket{v} \in \mathbf{M}\;\; \forall\;\; \ket{v} \in \mathbf{M},\; c \in \C$
+\end{itemize}   
+\end{definition}
+
+\begin{definition}
+The \textbf{span} of a set \textbf{S} is the smallest linear subspace $\in$ \textbf{S}.  
+\end{definition}
+
+\begin{theorem}
+\textbf{(Span of a set is always a subspace theorem)}\\
+Let $\mathbf{s} = \{ \ket{v_1}, \ket{v_2}, ... , \ket{v_k} \} \subset \C^n$, then $span(\mathbf{s})$ is a subspace of $\C^n$
+\\
+\begin{proof} \renewcommand{\qedsymbol}{}
+\begin{enumerate}
+\item Note that $\ket{0} = 0\ket{v_1} + 0\ket{v_2}  + ... + 0\ket{v_k} \in span(\mathbf{s})$. 
+\item Let $\ket{v}, \ket{u} \in span(\mathbf{s})$ be arbitrary. \\
+\\ 
+Since  $\ket{v}, \ket{u} \in span(\mathbf{s})$, there exists scalars $c_1, c_2, ... , c_k$ and $d_1, d_2, ... , d_k$ such that 
+\begin{align*}
+\ket{v} = &c_1\ket{v_1}, ... ,  c_k\ket{v_k} \\
+\ket{u} = &d_1\ket{v_1}, ... ,  d_k\ket{v_k}
+\end{align*}
+
+then, 
+\begin{align*}
+\ket{v} + \ket{u} &= (c_1\ket{v_1}, ... ,  c_k\ket{v_k}) +   d_1\ket{u_1}, ... ,  d_k\ket{u_k}\\
+ &= (c_1 + d_1)\ket{v_1} + ... + (c_k + d_k)\ket{v_k}\; \in\; span(\mathbf{s})
+\end{align*}
+This is the true because all of these are linear combinations consisting of a complex constant and a ket vector, which coincides with the \hyperref[def:Combination]{Linear Combination Definition 1.2}.\\
+\item Let $\ket{w} \in span(\mathbf{s})$ and $c \in \C$.
+If this is true, then there exists $\lambda_1, \lambda_2, ... , \lambda_k$ such that $\ket{v} = \lambda_1\ket{v_1}, ... ,  \lambda_k\ket{v_k}$.  Consider: 
+\begin{equation} 
+\begin{split}
+c\ket{w} &= c\ket{v} \\
+&= C(\lambda_1\ket{v_1}, ... ,  \lambda_k\ket{v_k}) \\
+&= (C\lambda_1)\ket{v_1} + ... + (C\lambda_k)\ket{v_k}
+\end{split}
+\end{equation}
+\textbf{Equation 1.6} shows that after distributing \textbf{C} in, we have another linear combination, which must exist inside of $span(\mathbf{s})$, and since $span(\mathbf{s})$ satisfies 1,2,3, $span(\mathbf{s})$ must be a subspace.
+\end{enumerate}
+\end{proof}
+\end{theorem}
+
+\begin{theorem}
+\textbf{Basis Theorem} \\
+If \textbf{S} is a set of \textbf{n} linearly independent vectors in $\C^\mathbf{n}$, then $span(\mathbf{S}) = \C$.
+\end{theorem}
+
+\begin{definition}
+A \textbf{basis} of a subspace $M \subseteq \C^n$ is a set of vectors \textbf{S} such that 
+\begin{enumerate}
+\item S is linearly independent.
+\item $span(\mathbf{S}) = M$, or in plain English "S spans M"
+\end{enumerate}
+\end{definition}
+
+\begin{definition}
+The \textbf{dimension} of a space is the number of vectors in it. 
+\end{definition}
+
+\begin{example}
+\textbf{Standard basis of different complex vector spaces.}\\ 
+\\
+\begin{itemize}
+\item Standard Basis for $\C^2$: $\bmat{1\\ 0}, \bmat{0\\ 1}$
+\item Standard Basis for  $\C^n$: $\bmat{1\\ 0\\ \vdots\\ 0}, \bmat{0\\ 1\\ \vdots\\ 0}, ... , \bmat{0\\ 0\\ \vdots\\ 1}$
+\end{itemize}
+\end{example}
+
+\begin{exercise}[Vector Space Exercise]
+Below are some exercises designed to put the concepts in this section to work, in order to further reinforce learning.
+\begin{enumerate}
+\item Consider S = $\{\ket{v_1},\ket{v_2},\ket{v_3}\}$, where $\ket{v_1} = \bmat{1\\ -1}, \ket{v_2} = \bmat{i\\ 1}, \ket{v_3} = \bmat{0\\ i}$
+	\begin{enumerate}
+	\item Give a linear combination of the vectors in S.\\
+	\begin{equation}
+	\lambda\ket{v} = 1\bmat{1\\ -1} + 1\bmat{i\\ 1} - (1 + 200i)\bmat{0\\ i}
+	\end{equation}
+	\item Determine if $\bmat{1 + i\\ 200 - i}$ is in Span($S$).
+	\begin{equation*}
+	\begin{split}
+		\alpha\ket{v1} + \beta\ket{v_2} + \gamma\ket{v_3} &= \bmat{1 + i\\ 200 - i},\qquad 	\alpha = 1, \beta = 1, \gamma = ?\\
+		1\bmat{1\\ -1} + 1\bmat{i\\ 1} - \gamma\bmat{0\\ i} &= \bmat{1 + i\\ 200 - i}				\text{Choose alpha and beta to obtain} \bmat{1+i\\ 0}\\
+		\bmat{1 + i\\ 0} - \gamma\bmat{0\\ i} &= \bmat{1 + i\\ 200 - i}\qquad \text{Now we must isolate $\gamma$}\\
+		\bmat{0\\ \gamma*i} &= \bmat{0\\ -200 + i}\qquad \text{We now set the matrix as an equality}\\
+		\gamma*i &= -200+i\\
+		\gamma &= -(1 + 200i)\\
+		1\bmat{1\\ -1} + 1\bmat{i\\ 1} - (1 + 200i)\bmat{0\\ i} &= \bmat{1 + i\\ 200 - i} 
+	\end{split}
+	\end{equation*} 
+	Since we were able to create a linear combination of the vectors that satisfy the given vector, it is in Span($S$).
+	\item Describe Span($S$) geometrically. \\
+	\\
+	Span($S$) is every possible vector $\in \C^2$
+	\end{enumerate}
+\end{enumerate}
+\end{exercise}
+
+\pagebreak
+
+\begin{exercise} [Linear Independence Exercise]
+Find the condition under which the following two vectors are linearly independent.\\
+\begin{equation*}
+\ket{v_1} = \bmat{x\\ y\\ 3} \in \R,\qquad \ket{v_2} = \bmat{2\\ x - y\\ 1} \in \R
+\end{equation*}
+
+\begin{equation}
+\begin{split}
+	\bmat{x\\ y\\ 3} = \alpha\bmat{2\\ x-y\\ 1}\\
+\end{split}
+\end{equation}
+\text{First, we must  make this linearly dependent so we know when x and y fail linear independence}\\
+\begin{equation*}
+\begin{split}
+	\alpha = 3 \quad \rightarrow \quad \bmat{x\\ y\\ 3} &= 3\bmat{2\\ x-y\\ 1}\\
+	\bmat{x\\ y\\ 3} &= \bmat{6\\ 3(x-y)\\ 3}\\ 
+\end{split}
+\end{equation*}
+\begin{center}
+Now we need to make this an equality to solve for x and y.
+\end{center}
+\begin{equation*}
+\begin{split}
+	x = 6 \quad \rightarrow \quad y &= 3(x-y)\\
+	y &= 3x - 3y\\
+	4y &= 18\\
+	y &= 9/2 \text{(or 4.5)}
+\end{split}
+\end{equation*}
+\end{exercise}
+
+\pagebreak
+
+\begin{exercise} [Basis Exercise]
+Show that the set formed by the following vectors is a basis for $C^3$\\
+\begin{center}$
+\ket{V_1} = \bmat{1\\ 1\\ 1},\; \ket{V_1} = \bmat{1\\ 0\\ 1},\; \ket{V_1} = \bmat{1\\ -1\\ -1}\; 
+$\\
+\end{center}
+There are two things we must prove in order for a set of vectors to form a basis: linear independence and an equal number of vectors as the dimension of the space.\\
+First we will prove linear independence:\\\\
+\textbf{1. Linear Independence Test}
+\begin{equation}
+\begin{split}
+	&\bmat{1& 1& 1& 0\\ 1& 0& -1& 0\\ 1& 1& -1& 0} \text{First, we build augmented matrix}\\
+	\xrightarrow{R_2 - R_3} &\bmat{1& 1& 1& 0\\ 0& -1& 0& 0\\ 1& 1& -1& 0}\\
+	\xrightarrow{R_3 - R_1} &\bmat{1& 1& 1& 0\\ 0& -1& 0& 0\\ 0& 0& -2& 0}\\
+	\xrightarrow{-1*R_2,\;-\tfrac{1}{2}*R_3} &\bmat{1& 1& 1& 0\\ 0& 1& 0& 0\\ 0& 0& 1& 0}\\
+	\xrightarrow[R_1 - R_3]{R_1 - R_2} &\bmat{1& 0& 0& 0\\ 0& 1& 0& 0\\ 0& 0& 1& 0}\\ 
+\end{split}
+\end{equation}
+Thus, we have proved that if the only way to obtain the [0] matrix is through $\lambda_1, ... , \lambda_k = 0$ as mentioned in \hyperref[def:Independence]{Definition 1.4}, we know that the vectors are \textbf{linearly independent}.\\ 
+\\
+\textbf{2. Dimension Test}
+\\\\
+Now we must prove that the dimension of the space is equal to the number of the vectors, and since we are working with $C^3$ and we have $\ket{V_1}, \ket{V_2}, \ket{V_3}$ we know that our space has three dimensions and we have three vectors, therefore we have just proven that \textbf{the given set of vectors forms a basis for $\mathbf{\C^3}$.}
+\end{exercise}
+\pagebreak
+\subsection{Inner/Outer Products, and Norms of Vectors}
+\begin{definition}
+The \textbf{dual space of $\mathbf{\C^n}$} ($\mathbf{\C^{n^*}}$) is a space of row vectors where there are n entries from $\C$. 
+\end{definition}
+\begin{definition}
+A \textbf{transpose} is an operation that every column into a row vector and vice versa without changing the order.
+\end{definition}
+\begin{example}[Example of transpose operation]
+\begin{equation}
+\ket{V}^\dagger = \bmat{7\\ 8i\\ \pi+3i\\ 0}^\dagger
+\end{equation}
+\begin{equation}
+\bra{V} = \bmat{7& 8i& \pi+3i& 0}
+\end{equation}
+It can be seen that the only difference between \textbf{1.10} and \textbf{1.11} is that we have converted the column to a row, this is accomplished through the \textbf{dagger ($\mathbf{\dagger)}$} being applied to a matrix or vector.
+\end{example}
+
+\begin{definition}
+Given $\ket{V}, \ket{W}$, the \textbf{inner product} of $\ket{V}, \ket{W}$ is $\braket{W|V}$ which can also be written as ${\bra{W}} * \ket{V}$. \\ \textit{It should be noted that the inner product of a bra and ket vector will always yield a constant}.
+\end{definition}
+
+\begin{example}[Example of an Inner Product on $\R^n$]
+\begin{equation}
+\ket{V} = \bmat{1\\ 1\\ 3}, \ket{W} = \bmat{5\\ -2\\ 1}
+\end{equation}
+\begin{equation}
+\braket{W|V} = \bmat{5& -2& 1}\bmat{1\\ 1\\ 3} = 5 - 2 + 3 = 6
+\end{equation}
+\textit{It should be noted that the inner product on $\R^n$ is just the usual dot product.}
+\end{example}
+
+\begin{example}[Example of an Inner Product on $\C^n$]
+\begin{equation}
+\ket{V} = \bmat{i\\ 1}, \ket{W} = \bmat{-i\\ -1}
+\end{equation}
+\begin{equation}
+\braket{W|V} = \bmat{-i& -1}\bmat{i\\ 1} = 1 - 1 = \mathbf{0} 
+\end{equation}
+\textit{The inner product yielding 0 means that the two vectors are \textbf{orthogonal}.}
+\end{example}
+
+\pagebreak
+\begin{definition}
+The \textbf{norm (or magnitude)} of $\ket{V} \in \C^n$ is 
+\begin{equation}
+\norm{\ket{V}} \coloneqq \sqrt{\braket{V|V}}
+\end{equation}
+\end{definition}
+
+\begin{example} [Example of taking the norm of a complex vector]
+\begin{equation*}
+\begin{split}
+v &= \bmat{1,1} \in \R^2\\
+\norm{\ket{V}} &\coloneqq \sqrt{\bmat{1 & 1}|\bmat{1\\ 1}} = \sqrt{1+1} = \sqrt{2}
+\end{split}
+\end{equation*}
+\textbf{Two points of note:}\\
+1. Can $\braket{W|V}$ be complex?\qquad\qquad\;         \textbf{YES}\\
+2. Can $\braket{V|V}$ = $\norm{\ket{V}}^2 \in \C?$\qquad\qquad   \textbf{YES}
+\end{example}
+
+\begin{definition}
+A set of nonzero vectors S = $\{\ket{V_1}, \ket{V_2}, ... , \ket{V_k}\} \leq \C^n$ is called \textbf{an orthogonal set} if $\mathbf{\braket{v_i|v_j} = 0}$ if $\mathbf{i \neq j}$.
+\end{definition}
+
+\begin{theorem} [Orthogonality and Linear Independence Theorem]  
+In this theorem, we will use what we have learned so far in order to gain a deeper understanding into the properties of orthogonality in a vector space.\\ \\
+\textbf{If S = {$\ket{V_1}, ... , \ket{V_1}$} is an orthogonal vector set of nonzero vectors in $\C^n$, then S is linearly independent. } 
+\begin{proof}  \renewcommand{\qedsymbol}{}
+Let $c_1, ... , c_k \in \C$ s.t. $c_1\ket{v_1}, c_2\ket{v_2}, ... , c_k\ket{v_k} = \ket{0}$.
+\\
+\textbf{Goal}: Show $c_1, ... , c_k = 0$ using assumption S is orthogonal set.\\
+\\
+Let $j \in \{1, ... , k\}$, then 
+\begin{equation}
+\begin{split}
+&\bra{v_j}(c_1\ket{v_1}, ... , c_k\ket{v_k}) = \braket{v_j|0}\\
+&c_1\braket{v_j|v_1}+ ... + c_k\braket{v_j|v_k}\\
+&c_j\braket{v_j|v_j} = \text{Since S is an orthogonal set}
+\end{split}
+\end{equation}
+Since $\braket{v_j|v_j}$ can't possibly be 0 because we know that $j \neq 0$, it means that $c_k$ must be zero, which as stated in the \hyperref[def:Independence]{Linear Independence Definition}, means that S is linearly independent.  
+\end{proof}
+\end{theorem}
+
+\begin{definition}
+A basis is \textbf{orthonormal} if two conditions are satisfied: 
+\begin{enumerate} \renewcommand{\blacklozenge}{}
+\item S is an orthogonal set of \textit{n} unit vectors.
+\item Span(S) $\in \C^n$
+\end{enumerate} 
+In plain English, an orthonormal basis is a basis in which there are exactly the number of vectors as the dimension of the space (from the basis definition) as well as well as all of those vectors being orthogonal to each other.  
+\end{definition}
+
+\pagebreak
+
+\begin{exercise}  [Basis Practice]  In this example, there will be multiple transformations completed to gain a better understanding of what a basis is, and what it means to be orthogonal. \leavevmode\linebreak  
+\begin{enumerate}
+\item 
+\begin{equation} \renewcommand{\blacklozenge}{}
+\ket{b_1} = \frac{1}{\sqrt{2}}\bmat{1\\ 1} \qquad\qquad \ket{b_2} = \frac{1}{\sqrt{2}}\bmat{1\\ -1}
+\end{equation}
+	\begin{enumerate}
+	\item Show that $\mathcal{B}$ is an orthonormal basis for $\C^2$.\\
+		\begin{enumerate}
+		\item Check orthogonality:\\
+		\begin{equation*}
+		\braket{b_1|b_2} = \frac{1}{\sqrt{2}}(\bmat{1 & 1}\bmat{1\\ -1} = 1 - 1 = \mathbf{0}
+		\end{equation*}
+		These two vectors are orthogonal since their inner product is 0. \\
+		\item Check that they are unit vectors: (is the norm one?) \\
+		\begin{equation*}
+		\begin{split}
+		\norm{\ket{b_1}} = \sqrt{\braket{b_1|b_1}} = \frac{1}{\sqrt{2}}\sqrt{1+1} = \frac{\sqrt{2}}{\sqrt{2}} = &\mathbf{1}\\
+		\norm{\ket{b_2}} = \sqrt{\braket{b_2|b_2}} = \frac{1}{\sqrt{2}}\sqrt{1^2+(-1)^2} = \frac{\sqrt{2}}{\sqrt{2}} = &\mathbf{1}
+		\end{split}
+		\end{equation*}
+		\end{enumerate}
+		This means that, since the vectors are orthogonal and unit vectors, they are orthonormal, forming an orthonormal basis for $\C^2$.
+	\pagebreak
+	\item Find the coordinates of $\ket{x} = \bmat{-2 1}$ relative to basis $\mathcal{B}$ (i.e. find the scalars such that...)
+	\begin{equation*}
+	\begin{split}
+	c_1, c_2 \in \C\; \text{such that}\; c_1\ket{b_1} + c_2\ket{b_2} = \ket{x}\\\\
+	\bra{b_1}(c_1\ket{b_1} + c_2\ket{b_2}) = \braket{b_1|x}\\
+	c_1\braket{b_1|b_1} + c_2\braket{b_1|b_2} = \braket{b_1|x}\\\\
+	\text{$b_1, b_2$ are orthogonal so $\braket{b_1|b_2} = 0$ so}\\\\
+	c_1 = \braket{b_1|x}\\
+	\boxed{c_1 = \frac{1}{\sqrt{2}} \bmat{1&1}\bmat{-2\\ 1} = \mathbf{\frac{-1}{\sqrt{2}}}}
+	\end{split}	
+	\end{equation*}
+	\begin{equation*}
+	\begin{split}
+	\bra{b_2}(c_1\ket{b_1} + c_2\ket{b_2}) = \braket{b_2|x}\\
+	c_1\braket{b_2|b_1} + c_2\braket{b_2|b_2} = \braket{b_2|x}\\\\
+	\text{$b_1, b_2$ are orthogonal so $\braket{b_2|b_1} = 0$ so}\\\\
+	c_2 = \braket{b_2|x}\\
+	\boxed{c_2 = \frac{1}{\sqrt{2}} \bmat{1&-1}\bmat{-2\\ 1} = \mathbf{\frac{-3}{\sqrt{2}}}}
+	\end{split}	
+	\end{equation*}
+	\end{enumerate}
+\end{enumerate}
+\end{exercise}
+\pagebreak
+\begin{definition}
+Define $P_i \coloneqq \ket{f_i}\bra{f_i}$ to be the \textbf{projection operator} onto span($\ket{k_i}$)
+\end{definition}
+\begin{proposition}
+Let $\mathcal{B} = \{\ket{f_1}, ... , \ket{f_n}\}$ be an orthonormal basis for $\C^n$ then...\\
+\begin{enumerate}
+\item $P_i(\ket{v}) \in span(\ket{f_1}) $
+\item $\ket{v} - P_i\ket{v}$ is orthogonal to $\ket{f_i}$
+\item ${P_i}^2 = P_i * P_i = P_i$ Projection will still be the same.
+\item $P_iP_j = 0$ shadow on one plane will be "nothing" in the perspective of another plane.
+\item $P_i^\dagger = P_i$ self-adjoint
+\item $\sum_{i=1}^{n} P_i = I_n$
+\end{enumerate}
+\begin{example} [Outer Product Example]
+Given $P_2 = \frac{1}{2} \bmat{1 &-1\\ -1& 1}$, what is $P_1 + P_2$\\
+\begin{equation*} \renewcommand{\blacklozenge}{}
+\begin{split}
+P_1 &= \ket{f_1}\bra{f_1}\\
+&= \frac{1}{\sqrt{2}} \bmat{1\\1} * \frac{1}{\sqrt{2}}\bmat{1&1}\\
+&= \frac{1}{2} \bmat{1&1\\1&1}\\
+P_1 + P_2 &= \frac{1}{2} \bmat{1&1\\1&1} + \frac{1}{2} \bmat{1&-1\\-1&1}\\
+&= \frac{1}{2} \bmat{0&2\\2&0}\\
+&= \bmat{1&0\\0&1}\\
+\end{split}
+\end{equation*}
+This is an interesting result, it shows that if you add all of the projections in a space you will get the identity matrix, proof available elsewhere as I am too lazy to type it out.
+\end{example}
+\end{proposition}
+
+\textbf{Why is projection useful?}: It allows us to find $c_1, ... , c_k$ for $\ket{x} = c_1\ket{f_1} + ... + c_k\ket{f_k}$  when all $\ket{f}$ are orthogonal to each other.
+
+\pagebreak
+\begin{theorem} [The Gram Schmidt Process]
+Let {$\ket{b_1}, ... , \ket{b_k}$} be the basis for a subspace M in $\C^n$. Define the set of vectors {$\ket{f_1}, ... , \ket{f_k}$} as follows:\\
+\\
+\textbf{Step 1:} \\
+Define $\ket{f_1} \coloneqq \ket{b_1}$.\\\\
+\textbf{Step i+1:} \\
+for i = 1:k-1\\
+\begin{equation}
+\ket{f_{i+1}} \coloneqq \ket{b_{i+1}} - (\sum_{j=1}^{i}  {\frac{\ket{f_j}\bra{f_j}}{\braket{f_j|f_j}}})\ket{b_{i+1}} = \ket{b_{i+1}} - (\sum_{j=1}^{i}  {\frac{\braket{f_j|b_{i+1}}}{\braket{f_j|f_j}}})\ket{f_j}
+\end{equation}
+\textbf{\textit{Done}}\\\\
+\textbf{Now normalization step}\\
+for i = 1 : k
+\begin{equation}
+\ket{f_i} \coloneqq \frac{1}{\norm{\ket{f_i}}}\ket{f_i}
+\end{equation}
+\textbf{\textit{Done, now we know that $\ket{f_1}, ... \ket{f_k}$ is a orthonormal basis for M}}
+\end{theorem}
+
+\textit{A special thank you for Dr. Hamidi and Dr. Ismert for giving this psuedocode function for Gram Schmidt, I have pulled from it heavily in this page as it is the best way to explain this code.}
+\pagebreak
+
+\section{Matrices and Linear Transformations}
+\subsection{Matrices} \textbf{This section assumes a basic knowledge of matrix operations, and should be a basic overview.}
+
+\begin{definition}
+$\mathbf{M_{mn(}\C)}$ = set of all mxn matrices with complex entries.
+\end{definition}
+
+\begin{definition}
+$\mathbf{M_n(\C) \equiv M_{nn}(\C)}$ meaning that it is just a square matrix with nxn size.  
+\end{definition}
+
+\begin{example} [Pauli Matrices]
+\begin{equation}
+\begin{split}
+\sigma_x &= \bmat{0 &1\\ 1 &0}\\
+\sigma_y &= \bmat{0 &i\\ -i &0}\qquad\qquad \in M_2\\
+\sigma_z &= \bmat{1 &0\\ 0 &-1}\\
+\end{split}
+\end{equation}
+\textit{These three matrices are called the \textbf{Pauli matrices} the the basic matrices we will use for quantum computations in the future.}
+\end{example}
+
+\begin{definition}
+The \textbf{Identity Matrix} ($I_n$) is the matrix $M_n$ whose columns are the standard basis {$\ket{e_1}, ... , \ket{e_n}$} for $\C_n$.
+\begin{equation}
+I_4 = \bmat{1 &0 &0 &0\\ 0 &1 &0 &0 \\ 0 &0 &1 &0 \\ 0 &0 &0 &1}
+\end{equation}
+\end{definition}
+
+\begin{theorem}
+$M_n$ has a well defined matrix multiplication, in general, if $A \in M_{mn}, B \in M_{nk}$. \\\\
+The matrix $AB = [A\ket{b_1}\;\; ...\;\; A\ket{b_k}]$
+\end{theorem}
+
+\begin{example}[Pauli Matrices in action] For this example, we will be scaling the $\sigma_y$ Pauli matrix.
+\begin{equation} \renewcommand{\blacklozenge}{•}
+\begin{bmatrix}
+0 & -i \\
+i & 0
+\end{bmatrix}\begin{bmatrix}
+1 & 0 \\
+0 & 3
+\end{bmatrix}=\begin{bmatrix}
+0 & -3i \\
+i & 0
+\end{bmatrix}=\bmat{1\ket{a_1} &3\ket{a_2}}
+\end{equation}
+This shows that in general, multiplying a row matrix by a diagonal matrix will scale the row matrix by the respective diagonal matrix value.
+\end{example}
+
+\pagebreak
+
+\subsection{Eigenvectors and Eigenvalues}
+
+\subsubsection{Eigenvalues/Eigenvectors}
+
+\begin{definition}
+An \textbf{eigenvalue} for $A \in M_n$ is a complex number $\lambda \in \C$ such that there is a nonzero vector $\ket{x} \in \C^n$ satisfying
+\begin{equation}
+A\ket{x} = \lambda\ket{x}
+\end{equation}
+\end{definition}
+
+\begin{definition}
+A mmatrix $A \in M_n$ is \textbf{diagnolizable} if and only if:
+\begin{enumerate}
+\item There exists a diagonal matrix D and an invertable matrix P such that $A = PDP^-1$ if and only if
+\item there exists a basis for $C^n$ consisting of eigenvalues for A. 
+\end{enumerate}
+\end{definition}
+
+\begin{example}
+Consider:
+\begin{equation}
+A = \bmat{I_2 &0\\ 0 &\sigma_y} \equiv \bmat{\bmat{1 &0\\ 0 &1} &\bmat{0 &0\\ 0 &0}\\ \bmat{0 &0\\ 0 &0} &\bmat{0 &-i\\ i &0}}
+\end{equation}
+\begin{enumerate}
+\item Get eigenvalues and some normalized eigenvectors:
+\begin{equation}
+\begin{split}
+&\bmat{1 &0 &0 &0\\ 0 &1 &0 &0\\ 0 &0 &0 &-i\\ 0 &0 &i &0} - \bmat{\lambda &0 &0 &0\\ 0 &\lambda &0 &0\\ 0 &0 &\lambda &0\\ 0 &0 &0 &\lambda}\\
+=&\bmat{1-\lambda &0 &0 &0\\ 0 &1-\lambda &0 &0\\ 0 &0 &\lambda &-i\\ 0 &0 &i &-\lambda}\\
+=&(1-\lambda)(1-\lambda)[\lambda^2-1] = 0\\
+&\lambda = 1, 1, 1, -1 
+\end{split}
+\end{equation}
+\item Now plug in eigenvalue and find eigenvector:
+\begin{equation}
+\begin{split}
+&A\ket{e_1} = \ket{e_1}\\
+&A\ket{e_2} = \ket{e_2}\\
+A-\lambda*I = &\bmat{0 &0 &0 &0\\ 0 &0 &0 &0\\ 0 &0 &-1 &-i\\ 0 &0 &i &-1}\\
+\xrightarrow{R_4 + iR_3} &\bmat{0 &0 &0 &0\\ 0 &0 &0 &0\\ 0 &0 &-1 &i\\ 0 &0 &0 &0}\\
+\xrightarrow[{R_1 \leftrightarrow R_3}]{-1R_1} &\bmat{0 &0 &1 &-i\\ 0 &0 &0 &0\\ 0 &0 &0 &0\\ 0 &0 &0 &0}\\
+&\text{Now we must use this and transfer it into an equation to solve for } x_3,\; x_4\\
+&x_3 = ix_4\\
+&\text{Choose } x_4 = 1\\
+&\ket{x} = \bmat{1 \\0 \\0 \\0},\bmat{0 \\1 \\0 \\0}, \bmat{0\\ 0\\ i\\ 1}, \bmat{0\\ 0\\ 1\\ i}\\
+\end{split}
+\end{equation}
+These first two arrays are just chosen because there are no $x_1, x_2$ values in the eigenvector array, so we choose two unit vectors.
+\item Finally, normalize the vector.\\
+$\ket{x} = \bmat{1 \\0 \\0 \\0},\bmat{0 \\1 \\0 \\0}, \frac{1}{\sqrt{2}}\bmat{0\\ 0\\ i\\ 1}, \frac{1}{\sqrt{2}}\bmat{0\\ 0\\ 1\\ i}$\\
+\item Final answer\\
+P = $\bmat{1 &0 &0 &0\\ 0 &1 &0 &0\\ 0 &0 &\frac{1}{\sqrt{2}} &\frac{1}{\sqrt{2}}*i\\ 0 &0 &\frac{1}{\sqrt{2}}*i &\frac{1}{\sqrt{2}}}$, D = $\bmat{1 &0 &0 &0\\ 0 &1 &0 &0\\ 0 &0 &1 &0\\ 0 &0 &0 &-1}$
+\end{enumerate}
+\end{example}
+
+\pagebreak
+
+\subsubsection{Eigenvectors and Eigenvalues Big Picture}
+\begin{enumerate}
+\item Self-Adjoint (Hermitian)
+\begin{equation}
+\begin{split}
+A \in M_n &\text{ is Hermitian if }\\
+&A^\dagger = A\\
+&{\sigma_x}^\dagger = \sigma_x\\
+&{\sigma_y}^\dagger = \sigma_y\\
+&{\sigma_z}^\dagger = \sigma_z\\
+\end{split}
+\end{equation}
+Additionally, all Hermitian matrices are diagnolizable, meaning their eigenvalues form a orthonormal basis.
+\item Normal Matrices
+\begin{equation}
+A*A^\dagger = A^\dagger*A \leftrightarrow \text{eigenvectors form orthonormal basis}
+\end{equation}
+\item Positive semi-definite matrix $M_n$ is:
+\begin{equation}
+\begin{split}
+&\forall\ket{x} \in \C^n, \text{we have} \\
+&\braket{x|A|x} \geq 0 \text{ where } A\ket{x} = y\\
+\end{split}
+\end{equation}
+\item (Unitary Matrices) The following are all equivalent:
+\begin{itemize}
+\item $U \in M_n$ is unitary
+\item $U^\dagger = U^{-1}$ or ($U^{-1}*U = U*U^{-1} = I_n$)
+\item $U*U^\dagger = I_n$ or $U^\dagger*U = I_n\qquad$ \textit{note: $U^\dagger$ not always equal to $U$, but they are normal.}  
+\item The column of U form an orthonormal basis for $\C^n$.
+\item $\forall\ket{x},\ket{y}\in\C^n$ and $\braket{U_x|U_y} = \braket{x|y}$ meaning unitary matrices are rotation matrices.
+\end{itemize}
+\end{enumerate}
+
+
+\pagebreak
+\section{Introduction to Quantum Theory}
+Now that we have laid out the mathematical framework necessary to understand this subject, it is time to lay our the physics necessary to complete the basis (no pun intended) for Quantum Information Theory.  
+\subsection{Quantum Theory Axioms}
+These axioms are humans attempts at creating rules and methods of abstractions to describe and understand 
+\subsubsection{Axiom 1.1: A vector state x is a unit vector in a complex Hilbert space.}
+We want to figure out the photon's (particle) polarization, to figure this out we are going to shoot it at a vertically polarized filter.  Classically, $\ket{x}$ should be polarized $\uparrow$ or $\rightarrow$, if this is the case we expect two outcomes: \\
+\begin{enumerate}
+\item If $\ket{x}$ goes through filter, then $\ket{x}$ is $\uparrow$.
+\item If $\ket{x}$ is deflected, then $\ket{x}$ is $\rightarrow$.
+\end{enumerate}
+
+\subsubsection{Axiom 1.2: Linear combinations (or superposition) of the physical states are allowed to act as x vectors.}
+\begin{center}
+Physical States (Choices made by humans to describe quantum mechanics):\\
+$\uparrow = \bmat{0 \\1} \qquad \rightarrow = \bmat{1 \\0}$\\
+\textit{Something of note, these two vectors form a basis for $\C^2$ and all combinations are:}\\
+$\ket{x} = \alpha\bmat{0 \\1} + \beta\bmat{1 \\0}$ where $\norm{\alpha}^2 + \norm{\beta}^2 = 1$\\
+To keep track of this choice, we make the matrix $A = \bmat{ 0 &0\\ 0 &1}$ representing vertically polarized filter.\\
+\textit{Another note, the e-vals of that matrix are $\ket{v}, \ket{h}$.}
+\end{center}
+
+\begin{example}
+$\bmat{1& 0\\ 0& 0}$ might be a nice to represent a horizontally polarized filter.  
+\end{example}
+
+\subsubsection{Axiom 2: Observable} An observable of a state $\ket{x}$ corresponds to a Hermitian matrix A. $\ket{x}$ is in state $\ket{u}$, an e-vect for A with probability $|\braket{u|x}|^2$\\
+
+\begin{definition}
+Expectation value of A (or mean value) of observable associated to A after measurements with respect to many copies of $\ket{\psi}$ is \textbf{the weighted average of the expected outcomes}.
+\begin{equation*}
+\begin{split}
+\braket{A}_\psi &= \sum_{i=1}^{n} |\braket{u_i|\psi}|^2\\
+\ket{\psi} &= \sum_{i=1}^{n} c_i \ket{u_i} \text{where $u_i$ is an e-basis from A}
+\end{split}
+\end{equation*}
+\end{definition}
+
+\subsubsection{Axiom 3: The time dependence of a state is governed by the Schrödinger equation}
+\begin{equation}
+i\bar{h}\frac{\delta|\psi|}{\delta t} = H\ket{\psi}
+\end{equation}
+$\bar{h}$ is reduced Planck's constant\\
+H is Hermitian matrix corresponding to energy of the system \textbf{Hamiltonian}. \\
+\\
+When H is time invariant (constant), the Schrödinger equation becomes:
+\begin{equation}
+\ket{\psi (t)} = e^{\frac{-itH}{\bar{h}}}\ket{\psi (0)}
+\end{equation}
+
+\pagebreak
+\subsection{More Introductory Quantum Concepts}
+Now that the basic framework of what a quantum state is, it is now time to apply these concepts and build on them to further characterize what a quantum system is, and why it is important to us.  Prepare yourself, because we are jumping right into an example applying the previous axioms to characterize a \textit{real world} quantum system.\\
+\begin{example}
+Consider a physical system with Hamiltonian $H = \frac{\hbar}{2} \omega\sigma_x$ and suppose $\ket{\psi(0)} = \bmat{1\\ 0}$ (The first column of $\sigma_z$.)\\
+\begin{itemize}
+\item Find the wave function $\ket{\psi(t)}, t>0$, which by the Shrödinger equation is:\\
+\begin{equation}
+\begin{split}
+\ket{\psi(t)} &= \exp{\frac{-itH}{\hbar}} * \ket{\psi}\\
+&= \exp{(i(\frac{-t}{\hbar})(\frac{\hbar}{2}\omega\sigma_x))}\bmat{1\\0}\\
+&= \exp{i(\frac{t}{2}\omega)\sigma_x)}\bmat{1\\0}\qquad \text{where $\frac{t}{2} \omega$ is $\alpha$}\\
+&= \exp{i(\alpha)\sigma_x)}\bmat{1\\0}\\
+&= [\cos(\frac{t}{2}\omega)I+i\sin(\frac{t}{2}\omega)\sigma_x]\bmat{1\\0}\\
+&= \bmat{\cos(\frac{t}{2}\omega) &i\sin(\frac{t}{2}\omega)\\ i\sin(\frac{t}{2}\omega) &\cos(\frac{t}{2}\omega)}\bmat{1\\0}\\
+\ket{\psi(t)} &= \bmat{\cos(\frac{\omega t}{2})\\ i\sin{\frac{\omega t}{2}}}
+\end{split}
+\end{equation}
+\item Find the probability for the system to have outcome +1 upon measurement of $\sigma_z$\\
+\begin{equation}
+\begin{split}
+P_2\ket{\psi(t)} = \bmat{1 &0\\ 0 &0}\bmat{\cos(\frac{\omega t}{2})\\ i\sin{\frac{\omega t}{2}}} = \bmat{\cos(\frac{\omega t}{2}) \\0}\\
+P_\downarrow (t) = |\cos{\frac{\omega t}{2}}|^2 = \cos^2{\frac{\omega t}{2}}
+\end{split}
+\end{equation}
+As you can see, we have picked off the cos out of $\psi$ and in order to compute the probability distribution of the wave, we square the final answer, this will look familiar to a probability and statistics class topic of expected values and distributions (because it is... Wow! never thought it would be useful again)  
+
+\pagebreak
+\item Find the probability for the system to have outcome -1 upon measurement of $\sigma_z$\\
+\begin{equation}
+\begin{split}
+P_2\ket{\psi(t)} = \bmat{0 &0\\ 0 &1}\bmat{\cos(\frac{\omega t}{2})\\ i\sin{\frac{\omega t}{2}}} = \bmat{0 \\i\sin{\frac{\omega t}{2}}}\\
+P_\downarrow (t) = |i\sin{\frac{\omega t}{2}}|^2 = \sin^2{\frac{\omega t}{2}}
+\end{split}
+\end{equation}
+Same thing as the one above, but notice that this one is picking out the sin in $\psi$ instead using the other diagonal term in the P matrix.\\  
+\item Find the expectation value under many measurements of $\sigma_z$:\\
+
+\end{itemize}
+\end{example}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+\end{document}
+
