@@ -9,6 +9,7 @@
 \usepackage{dsfont}
 \usepackage{enumerate}
 \usepackage{enumitem}
+\usepackage{MnSymbol,wasysym}
 \usepackage{tikz-cd}
 \usetikzlibrary{cd}
 
@@ -1188,8 +1189,126 @@ Finally we must check that $\varepsilon$ is an orthonormal set.
 \end{proof}
 \end{theorem}
 
+\pagebreak
+\subsubsection{Quantum Multipartite Systems}
+\begin{equation}
+H = H_1 \otimes H_2 \otimes \dots \otimes H_n \text{ is a multipartite system}
+\end{equation}
+\begin{center}
+\textit{Note: if n is two then the system is \textbf{bipartite}}
+\end{center}
 
+\begin{definition} [Bipartite state]
+$\ket{\psi}$ state in $H_1 \otimes H_2$ is called a \textbf{bipartite state}
+\end{definition}
 
+\begin{definition} [Separability]
+A vector $\ket{\psi} \in H = H_1 \otimes H_2$ is \textbf{separable} (or an elementary tensor) if $\ket{\psi} = \ket{\psi_1} \otimes \ket{\psi_2}$ for some $\ket{\psi_1} \in H_1, \ket{\psi_2} \in H_2$
+\end{definition}
+In plain English, separability states that there are vectors that can be tensored together to create the final tensor, an example below will illustrate this better.
+
+\begin{example} Is $\bmat{0\\0\\0\\1} \in \C^4 (\approx \C^2 \otimes \C^2)$ an elementary tensor?
+\begin{equation}
+\bmat{0\\1} \otimes \bmat{1\\0} = \bmat{{0*\bmat{1\\0}}\\{1*\bmat{1\\0}}} = \bmat{0\\0\\1\\0}
+\end{equation}
+\begin{center}
+It \textit{is} separable.
+\end{center}
+\end{example}
+
+\begin{definition}
+A vector that is \textit{not} separable is called \textbf{entangled}.
+\end{definition}
+
+\begin{remark}
+A state $\psi = C_{11}\ket{11} + C_{12}\ket{12} + C_{21}\ket{21} + C_{22}\ket{22}$ is separable only if (in $C^2$) rank is one (i.e. only if its rows are scalar multiples of each other), where the coeff matrix is $\bmat{C_{11} &C_{12}\\C_{21} &C_{22}}$.
+\end{remark}
+
+Most of the time, finding if $\ket{\psi} \in H_1 \otimes H_2$ is separable is not as easy as the exercises as above, this is because most of the time we cannot look at a matrix and infer the vectors being tensored together, this is where the next section comes into play, and we use a singular value decomposition.
+
+\pagebreak
+\subsubsection{Singular Value Decomposition} First things first, we must know that everything that is about to be shown is only applicable in bipartite systems, anything larger than that is an impossible, and yes that really means impossible, task in most situations because of the properties of quantum systems and their probabilistic nature.  If you can figure out an algorithmic way to solve the decomposition of multipartite systems, you will be very famous and more than likely have a decomposition named after you.  Now that we have laid that out there, lets continue with singular value decompositions.  
+
+The Singular Value Decomposition takes on the form $C = U \Sigma V^\dagger$, this will mean very little, but keep this in mind as you move through the example as this is the motivation to the steps below. 
+
+\begin{definition}
+If $A \in M_{mn}$, then the \textbf{singular values} for A are the square roots of the e-vals for $A^\dagger A \in M_{nn}$.
+\end{definition}
+
+\textbf{Fact:} For any $A \in M_{mn}$, $A^\dagger A$ is positive semi-definite, meaning it is Hermetian and its eigenvalues are non-negative.
+
+\begin{example} Find the singular value decomposition (SVD) for A = $\bmat{1 &1\\ 0 &0\\ i &i}$
+\begin{enumerate}
+\item \textbf{Compute eigenvalues and eigenvectors}
+\begin{equation}
+A^\dagger A = \bmat{1 &0 &-i\\ 1 &0 &-i}\bmat{1 &1\\0 &0\\-i &-i} = \bmat{2 &2\\2 &2}
+\end{equation}
+\begin{align*}
+&\text{Find the eigenvalues}\\
+det(A^\dagger A -\lambda I) &= 0 \rightarrow \boxed{\lambda = 0, 4}\\
+\\
+&\text{Find the eigenvectors}\\ 
+\lambda = 0 \rightarrow A^\dagger A \ket{x} &= \ket{0} \leadsto \ket{x} = \boxed{\frac{1}{\sqrt{2}}\bmat{-1\\1}}\\
+\lambda = 4 \rightarrow A^\dagger A \ket{x} &= 4\ket{x} \leadsto \ket{x} = \boxed{\frac{1}{\sqrt{2}}\bmat{1\\1}}
+\end{align*}
+Now we must take the spectral decomposition to get the e-vec matrix (see below).  We are allowed to take the spectral decomposition because we know that $A^\dagger A$ is positive semi definite.\\
+\begin{equation}
+A^\dagger A = \boxed{\frac{1}{\sqrt{2}} \bmat{1 &-1\\1 &1}} \bmat{4&0\\0&0}(\frac{1}{\sqrt{2}}\bmat{1&-1\\1&1})^\dagger
+\end{equation}
+\item \textbf{Make sure V's columns are in decreasing order with respect to eigenvalues.}
+\begin{align*}
+V &= \frac{1}{\sqrt{2}} \bmat{1&-1\\1&1}\\
+\Sigma &= \bmat{2&0\\0&0\\0&0} \leftarrow \bmat{\sqrt{\lambda_1}&0\\0&\sqrt{\lambda_2}\\0&0} \text{(This is generally how it is)}
+\end{align*}
+\item \textbf{Construct more e-vectors $A\ket{\lambda_1}, A\ket{\lambda_2}$} 
+\begin{align*}
+A\ket{\lambda_1} &= \bmat{1&1\\0&0\\i&i}(\frac{1}{\sqrt{2}} \bmat{1\\1}) = \bmat{\frac{2}{\sqrt{2}}\\ 0\\\frac{2i}{\sqrt{2}}} = \sqrt{2}\bmat{1\\0\\i}\\
+A\ket{\lambda_2} &= \bmat{1&1\\0&0\\i&i}(\frac{1}{\sqrt{2}} \bmat{1\\-1}) = \bmat{0\\0\\0} \text{This one is useless as there is no new info}
+\end{align*}
+\item \textbf{Now use $\ket{u_1} = \sqrt{2}\bmat{1\\0\\i}$ to create an ONB for $\C^3$.} 
+
+$\{\ket{u_1},\ket{u_2},\ket{u_3}\} \leadsto \{\ket{u_1},\ket{2},\ket{3}\}$ where $\ket{2} = \bmat{0\\1\\0}$ and $\ket{3} = \bmat{0\\0\\1}$\\
+This is linearly independent but not orthogonal, we must use Gram-Schmidt to change that:
+
+\item \textbf{Apply the Gram-Schmidt Process to the basis}
+My poor fingers tire of this, therefore I implore you to go look at the Gram-Schmidt example above to understand how this process works. If you don't believe me, feel free to try it for yourself and email me telling me of my stupidity if it is indeed wrong.  Thank you \smiley{}.\\
+Final Orthonormal Basis: 
+
+\begin{align*}
+\ket{u_1} &= \bmat{\frac{1}{\sqrt{2}}\\ 0\\ \frac{i}{\sqrt{2}}}\\
+\ket{u_2} &= \bmat{0\\ 1\\ 0}\\
+\ket{u_3} &= \bmat{\frac{i}{\sqrt{2}}\\ 0\\ \frac{1}{\sqrt{2}}}
+\end{align*}
+
+\item \textbf{Form U vector with orthonormal basis calculated above}
+\begin{equation}
+U = \bmat{\frac{1}{\sqrt{2}} &0 &\frac{i}{\sqrt{2}}\\ 0 &1 &0\\ \frac{i}{\sqrt{2}} &0 &\frac{1}{\sqrt{2}}} \text{ is \textbf{unitary}}
+\end{equation}
+
+\item \textbf{Finally, assemble the SVD!}
+\begin{equation}
+C =  U \Sigma V^\dagger = \bmat{\frac{1}{\sqrt{2}} &0 &\frac{i}{\sqrt{2}}\\ 0 &1 &0\\ \frac{i}{\sqrt{2}} &0 &\frac{1}{\sqrt{2}}}\bmat{2&0\\0&0\\0&0}{\bmat{\frac{1}{\sqrt{2}} &\frac{-1}{\sqrt{2}}\\ \frac{1}{\sqrt{2}} &\frac{1}{\sqrt{2}}}}^\dagger
+\end{equation}
+\end{enumerate}
+Whew, that was a hard process.. but now that we have this set of matrices, you can see that we can recover A through these, super useful!
+\end{example}
+
+\subsubsection{Schmidt Decomposition}
+
+\begin{theorem} Let $H = H_1 \otimes H_2$ where dim $H_1 = m < infinity$ and dim $H_2 = n < infinity$, every vector $\psi \in H$ admits a Schmidt Decomposition:
+\begin{equation}
+\psi = \sum_{j = 1}^r S_j \ket{u_j} \otimes \ket{v_j}
+\end{equation}
+where $s_j > 0$ are the \textbf{Schmidt Coefficients} satisfying $\sum_{j = 1}^r {S_j}^2 = 1$, $\{\ket{u_j}\} \leq H_1$ and $\{\ket{v_j}\} \leq H_2$ are orthonormal, and $r \leq min\{m,n\}$ is called the \textbf{Schmidt number}.\\
+\\
+\textit{Note: r is just the rank of the coeff matrix}\\
+\textit{Remark: $\ket{\psi} \in H_1 \otimes H_2$ is separable iff it's Schmidt number is 1}. 
+\end{theorem}
+
+\pagebreak
+
+\subsection{Mixed States as Density Matrices}
+In this section, we will learn how to describe quantum systems with density matrices, which we will find has many advantages compared to the ways we have learned to describe systems thus far, lets get into it.
 
 
 
