@@ -1324,11 +1324,77 @@ Let being vertically polarized by represented by:
 
 \begin{align*}
 A &= 0\ket{0}\bra{0} + 1\ket{1}\bra{1} =  \ket{1}\bra{1}\\
-= \bmat{0\\1}\bmat{1&0} = \bmat{0&0\\0&1} &\textit{ This can be assigned to the apparatus}
+= \bmat{0\\1}\bmat{1&0} = \bmat{0&0\\0&1} &\textit{ This can be assigned as the "apparatus"}
 \end{align*}
-
 \end{example}
 
+To glean information about $\psi$ regarding its polarization, we use the equation
+\begin{align*}
+\psi = &\alpha\ket{0} + \beta\ket{1}\\
+\text{ where } \norm{\psi} = &\sqrt{\braket{\psi|\psi}} = \sqrt{\norm{\alpha}^2+\norm{\beta}^2} = 1
+\end{align*}
+We interpret this expression of $\psi$ in the $\{\ket{0}, \ket{1}\}$-base as: 
+\begin{center}
+$\ket{\psi}$ is in $\ket{0}$ with $\norm{\alpha}^2$ probability    and     $\ket{\psi}$ is in $\ket{1}$ with $\norm{\beta}^2$ probability 
+\end{center}
+\textbf{Recall}: $\ket{\psi_1} = \alpha\ket{0} + \beta\ket{1}$ when we take this, and let it develop over time, the Schrödinger equation states that time development creates a phase shift in the particle vector.\\
+This leads to $\ket{\psi_2} = e^{i\theta}\alpha\ket{0} + e^{i\theta}\beta\ket{1}$ and it is in $\ket{0}$ with $\norm{e^{i\theta}\alpha}^2$ probability and is in $\ket{1}$ with $\norm{e^{i\theta}\beta}^2$ probability.\\
+\\
+\textit{Note: Something interesting is that based on this is that $\ket{\psi_1} \neq \ket{\psi_2}$ as \textbf{vectors} in $\C^2$\\
+but $\ket{\psi_1} = \ket{\psi_2}$ as \textbf{states} of the system in "quantum land".}\\
+\\
+
+\pagebreak
+
+As we can see, it is going to be really hard to understand what state a particle is in this format, but this is where density matrices come in.\\
+\textbf{Consider:}
+\begin{align*}
+\rho_{\psi_1} &= \ket{\psi_1}\bra{\psi_1} = (\alpha\ket{0} + \beta\ket{1})(\alpha^*\bra{0} + \beta^*\bra{1})\\
+&= |\alpha|^2\ket{0}\bra{0} + \alpha\beta^*\ket{0}\bra{1} + \alpha^*\beta\ket{1}\bra{0} + |\beta|^2\ket{1}\bra{1}\\
+\rho_{\psi_1} &= \bmat{|\alpha|^2 &\alpha\beta^*\\ \alpha^*\beta &|\beta|^2} 
+\end{align*}
+\begin{center}
+Now let's try the same thing with $\ket{\psi_2}$
+\end{center}
+\begin{align*}
+\rho_{\psi_2} &= \ket{\psi_2}\bra{\psi_2} = e^{i\theta}\alpha(e^{i\theta}\alpha)^* = e^{i\theta}\alpha * e^{-i\theta}\alpha^* = \alpha\alpha^2 = |\alpha|^2...\\
+&= \bmat{|\alpha|^2 &\alpha\beta^*\\ \alpha^*\beta &|\beta|^2}  \checkmark
+\end{align*}
+If you continue this you will see that they are the same matrix, meaning that using these matrices we can eliminate the time dependence of the vectors, and still keep the same data about the states.
+
+\begin{example} Given $\ket{\psi} = \frac{1}{\sqrt{2}}(\ket{0} - \ket{1})$ or $\ket{\psi} = \bmat{\frac{1}{\sqrt{2}} &-\frac{1}{\sqrt{2}}}$\\
+\\
+Find $\rho_\psi$ (w.r.t. $\{\ket{0}, \ket{1}\}$):
+\begin{equation}
+\rho_\psi = \bmat{\frac{1}{2} &-\frac{1}{2}\\ -\frac{1}{2} &\frac{1}{2}}
+\end{equation}
+\end{example}
+
+Now, a couple observations about density matrices:
+\begin{itemize}
+\item $\rho_\psi \in M_n \ (\C)$
+\item $\rho_\psi$ has trace 1 (i.e. Tr($\rho_\psi$) = 1 where Tr() is the sum of the diagonal matrices)
+\item $\rho_\psi$ is \textbf{Hermetian}, and in fact furthermore \textbf{positive semi-definite}. 
+\end{itemize}
+
+\begin{definition} [Trace]
+The \textbf{trace} of an nxn matrixis the sum of its diagonal entries.
+\end{definition}
+
+
+\begin{definition} [Density Matrix]
+A \textbf{density matrix} $\rho \in M_n$ is a Hermetian, positive semi-definite matrix such that tr($\rho$) = 1.
+\end{definition}
+
+\subsubsection{Density Matrix Axioms}
+\begin{itemize}
+\item Axiom 1': A physical state of a system, whose Hilburt Space $\mathbb{H}$, is completely determined by it's associated density matrix. 
+\item Axiom 2': The mean value of an observable A is $<A>_\psi = tr(\rho A)$
+\item Axiom 3': The time evolution of density matrix is given by the Louisville - von Nuemann equation 
+\begin{equation}
+i\hbar \frac{d}{dt} \rho = [H,\rho]
+\end{equation}
+\end{itemize}
 
 
 
