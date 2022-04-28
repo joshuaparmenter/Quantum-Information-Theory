@@ -12,6 +12,8 @@
 \usepackage{MnSymbol,wasysym}
 \usepackage{tikz-cd}
 \usetikzlibrary{cd}
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
 
 %\usepackage{parskip}
 
@@ -1308,8 +1310,13 @@ where $s_j > 0$ are the \textbf{Schmidt Coefficients} satisfying $\sum_{j = 1}^r
 \pagebreak
 
 \subsection{Mixed States as Density Matrices}
-In this section, we will learn how to describe quantum systems with density matrices, which we will find has many advantages compared to the ways we have learned to describe systems thus far, lets get into it starting with an exercise.
+In this section, we will learn how to describe quantum systems with density matrices, which we will find has many advantages compared to the ways we have learned to describe systems thus far, so before we get into any of the math, let us discuss the motivation more specifically.
 
+\subsubsection{Motivation for density matrices}
+Quantum particles are waves, and as such, there is some specificity when it comes to describing those particles with respect to time.  This would be a problem if two of the same particles were measured, there would be no guarantee that the particle would behave in the same way because of this phase shift with respect to time.  With a density matrix, we encompass the phase shift within the projection (math for this shown below) in creating one, meaning that we can describe particles regardless of their phase shift.  Now lets get into how to make one.
+
+
+\subsubsection{Creating a density matrix}
 \begin{example}
 Suppose $\ket{\psi} \in \C^2$ is the state of some quantum system. That means that $\norm{\ket{\psi}} = 1$ and if we were hoping to measure vertical or horizontal polarization.  \\
 \\
@@ -1344,7 +1351,6 @@ This leads to $\ket{\psi_2} = e^{i\theta}\alpha\ket{0} + e^{i\theta}\beta\ket{1}
 but $\ket{\psi_1} = \ket{\psi_2}$ as \textbf{states} of the system in "quantum land".}\\
 \\
 
-\pagebreak
 
 As we can see, it is going to be really hard to understand what state a particle is in this format, but this is where density matrices come in.\\
 \textbf{Consider:}
@@ -1361,6 +1367,8 @@ Now let's try the same thing with $\ket{\psi_2}$
 &= \bmat{|\alpha|^2 &\alpha\beta^*\\ \alpha^*\beta &|\beta|^2}  \checkmark
 \end{align*}
 If you continue this you will see that they are the same matrix, meaning that using these matrices we can eliminate the time dependence of the vectors, and still keep the same data about the states.
+
+\subsubsection{Density Matrix Observations}
 
 \begin{example} Given $\ket{\psi} = \frac{1}{\sqrt{2}}(\ket{0} - \ket{1})$ or $\ket{\psi} = \bmat{\frac{1}{\sqrt{2}} &-\frac{1}{\sqrt{2}}}$\\
 \\
@@ -1395,8 +1403,262 @@ A \textbf{density matrix} $\rho \in M_n$ is a Hermetian, positive semi-definite 
 i\hbar \frac{d}{dt} \rho = [H,\rho]
 \end{equation}
 \end{itemize}
+\subsubsection{What about bipartite?}
+I can already hear the cries from the judgmental people reading this document, "we will never have a single particle system".  You are completely right, but we have to walk before we run young padawan, be patient.  In this next section, we will discuss systems of tensor products of multiple states, and how they are represented in density matrices.
+\begin{definition} Let $\rho \in M_n(\C) \otimes M_m(\C)$ be a density matrix.\\
+\\
+\underline{Recall}: $\;\;\rho = \sum_{i=1}^{N}\;\; c_i \underbrace{A_{1,i}}_{\in M_n(\C)} \otimes \underbrace{A_{2,i}}_{\in M_n(\C)} $ \\
+\begin{enumerate}
+\item $\rho$ is called "\underline{uncorrelated}" if:         \\
+\\
+$\rho = \rho_1 \otimes \rho_2$ where $\rho_i$ is a density matrix.   (i.e. simple factorization)
+
+\item $\rho$ is "\underline{separable}" if:          \\
+\\
+$\rho = \sum_{i=1}^{N} p_i \rho_{1,i} \otimes \rho_{2,i}$. (i.e. factorable, but not actually two elementary tensors, actually a sum of multiple)
+
+\item If $\rho$ is \underline{not} "separable", so we call $\rho$ \underline{inseparable}.          (i.e. NO factorization)\\
+\end{enumerate}
 \pagebreak
-\subsection{Chapter 4}
+\begin{example} Find the tensor product of the quantum vector.
+\begin{equation}  
+\begin{split}
+\ket{\psi} &= \ket{02} \in \C^2 \otimes \C^3 \\
+&= \bmat{1\\ 0} \otimes \bmat{0\\ 0\\ 1} =\;\; \bmat{0\\ 0\\ 1\\ 0\\ 0\\ 0} \in \C^6\\
+\end{split}
+\end{equation}
+\begin{equation}
+\rho = \ket{02}\bra{02} =  \;\; \underbrace{\bmat{0\\ 0\\ 1\\ 0\\ 0\\ 0}}_{\text{"Tells the row"}}  \underbrace{\bmat{0& 0& 1& 0& 0& 0}}_{\text{"Tells the column"}} = \underbrace{\bmat{0&0&0&0&0&0\\0&0&0&0&0&0\\0&0&1&0&0&0\\0&0&0&0&0&0\\0&0&0&0&0&0\\0&0&0&0&0&0}}_{\text{"3rd row, 3rd col"}}
+\end{equation}
+\end{example}
+
+\begin{definition} Partial Trace
+The \underline{partial trace} of A over $\C^m$ is\\
+ \begin{equation}
+ A_1 = \sum_{i=1}^N \;\;\;c_i \underbrace{A_{1,i}}_{\text{elementary tensor}} \otimes \underbrace{A_{2,i}}_{\text{elementary tensors}}
+\end{equation}
+What is the point of the partial trace?\\
+The partial trace gives you information about the specific particle instead of the overall system as you are looking at the elementary tensors of the system.  
+\end{definition}
+\end{definition}
+
+\pagebreak
+
+\section{Qubits and Information Theory}
+Finally! I know, there has been large amounts of math up until this point, and there will continue to be, but with all of this math I hope that you have not lost sight of the purpose of this document: quantum computing!  All of this math was designed to give you some perspective on what is happening in these computers, and this is the section in which we will connect these math concepts to the quantum concepts integral to quantum computing, but first lets start with a quick review of classical computers.
+
+\subsection{Classical and Quantum Computer Comparisons}
+As a computer engineer, this is where I start to get \textit{super} interested, no offense to the mathematicians out there, but I find that placing these concepts to a real world parallel makes everything more interesting, so this first section will be a slight history lesson on how computers have worked since their inception, and how quantum computers solve many of the problems of classical computers, as well as create a whole new set of problems.
+
+\subsubsection{Classical Computer Basics}
+\begin{itemize}
+\item Boolean bit is either a 1 or 0.
+\item Data is transmit in strings of bits.
+\end{itemize}
+
+\begin{example} A bit of length 8 is a byte.
+00100100 in utf-8 is "\$". \smiley{} 
+\end{example}
+
+\subsubsection{Quantum Computer Basics}
+\begin{definition} Qubit
+A \textbf{qubit} is a unit vector in $\C^2$ 
+\begin{equation}
+\ket{\psi} = a\ket{0} + b\ket{1} such that \norm{a^2} + \norm{b^2} = 1
+\end{equation}
+\end{definition}
+
+\begin{remark} Some other facts about qubits \\
+\begin{itemize}
+\item To extract info from a qubit, make a measurement which results in \textbf{collapse} to a $\ket{0}$ or $\ket{1}$.
+\item Qutrits ($\C^3$) and qudits ($\C^n$) also exist, but are not discussed in this paper.
+\end{itemize}
+\end{remark}
+
+\begin{definition}
+A group or system of n qubits is called a \underline{quantum register}.
+\end{definition}
+
+\subsubsection{What problems does a quantum computer solve?}
+As you can see, for a quantum computer, there is little crossover,  but the main point is that while a classical computer can represent information as a 0 or 1, a quantum computer can represent the same information with a 0, 1, or anything in between, with the particle in "superposition".   An example of this contrast of the two computers will follow.
+
+\begin{example} Classical bit stream
+Suppose we have a bit stream, xyzw, of length 4.  Also suppose that each bit in this bitstream is determined completely independent of each other.  This would mean that there is a maximum of $2^4$ possibilities, and we are choosing 4 out of those to represent our bitstream.  This is quite a bit of data, that can be stored in those four bits, but this pales in comparison when looking at a  quantum register.  The example below illustrates that situation.
+\end{example}
+
+\begin{example}
+Suppose we can describe a quantum register of n qubits analogous to classical framework... meaning we can write each qubit as 
+\begin{equation}
+\begin{split}
+&a_i\ket{0} + b_i\ket{1} for i = 1, ..., n.  \\
+&(a_1\ket{0}+b_1\ket{1}) \otimes (a_2\ket{0}+b_2\ket{1}) \otimes ... \otimes (a_n\ket{0}+b_n\ket{1}) \;\;\; \in \C^{2^n}
+\end{split} 
+\end{equation}
+The main problem here is that we have superposition, we need to include the tangled vectors along with the pure states. this means that a state of the system should be
+\begin{equation}
+\ket{\psi} = \sum a\ket{i_1} \otimes \ket{i_2} \otimes \ket{i_3} \otimes ... \otimes \ket{i_n}
+\end{equation}
+Written differently, this is a linear combination of basis vectors:
+\begin{equation}
+\{\ket{0000}, \ket{0001}, \ket{0010}, ... , \ket{1111}\}
+\end{equation}
+As you can see, in the same four quantum bits, we can store infinitely more data in the same four bits because we can have some linear combination of the same bits, all because of superposition.  This is only one of the powerful aspects of quantum computing, more will be discussed in future paragraphs.
+\end{example}
+
+\subsubsection{More common quantum states}
+Lets look at a different basis, far different from our standard basis we use.
+\begin{example}
+Suppose we have two qubits ($\\C^2 \otimes \C^2$), the set 
+\begin{equation}
+\begin{split}
+\{&\ket{\phi^+} = \frac{1}{\sqrt{2}} (\ket{00}+\ket{11}),\qquad\ket{\phi^-} = \frac{1}{\sqrt{2}} (\ket{00}-\ket{11}),\\
+&\ket{\psi^+} = \frac{1}{\sqrt{2}} (\ket{01}+\ket{10}),\qquad\ket{\psi^-} = \frac{1}{\sqrt{2}} (\ket{01}+\ket{10})\}
+\end{split}
+\end{equation}
+This is called the \underline{Bell Basis}, another orthonormal basis for $\C^2 \otimes \C^2$.  Something about this basis is very different from other basis we have seen in the past, can you see it?  None of these states are separable, \textit{each of the Bell states is \textbf{entangled}!}
+This will become more important when we further understand why superposition is so powerful, but I will save that definition when we start to talk about cryptography. 
+\end{example}
+
+\pagebreak
+
+\subsubsection{Error recovery and avoidance}
+If there is one thing that we all know, it is that there are two things that are actually perfect: sweet baby Jesus and Grandma's pecan pie.  Quantum bits are neither of these, so they are in fact not perfect.  Therefore we need avenues to safeguarding and detecting against imperfections in the line, whether that be noise, some delay, or a software reception error.  Let us first look at how this is solveed in a classical manner then we can approach how it is solved in the quantum realm.  
+
+\paragraph{Classical repetition codes}
+Suppose a user sends 10\textbf{1}1 over a channel, but Sally, the person receiving the message, gets 10\textbf{0}1.  \\
+\\
+We must be able to identify that there has been an error in the third bit.  One of the simplest ways to avoid this is by sending four of each bit, like this: 1111 0000 1111 1111.  \\
+\\
+Now suppose that Sally receives 1111 0100 1110 1110.  She can take the bit that shows up most commonly in these four bit strings, and choose that as the bit to be used in that slot.  The more bits there are, the lower the chance that there will be an error in the message transmission.\\
+\\
+Woohoo, that is awesome, surely it is that simple to do the same in the quantum realm right?  \textbf{WRONG, SO SO WRONG, HOW NIAVE OF YOU.}  This fails for a couple reasons: 
+\begin{enumerate}
+\item Measurements cause collapse, meaning that as soon as we measure that bit, it is useless to us, at least in a quantum sense. 
+\item All bits are distinct to one another, so sending "the same bit" carries a different weight when thinking about quantum bits compared to classical bits.
+\end{enumerate}
+So now we know that there is no way to send redundant information because of the properties of particles in superposition, but there must be a way to interact with quantum bits without collapsing them right? There is, it is through quantum gates, which simply put are unitary transformations applied to qubits.  Just because we can use quantum gates to interact with qubits does not mean that we are able to freely clone systems with these gates to accomplish this redundancy, in fact, this is the opposite of what we can do, a theory called the no-cloning theorem disproves this.  I may add it if I have time, if not, sorry.  We will see how my fingers feel after I finish this chapter.
+
+\pagebreak
+
+\subsection{Qubits and Quantum Gates}
+Looking back, it seems that we jumped straight into this wild world of qubits and quantum gates, but I do not think there was every a simple definition of what a qubit is, so lets review that before jumping into another section. 
+
+\paragraph{Qubit Review}
+A qubit is simply a linear combination of two of our standard basis vectors, written in math it is
+\begin{equation}
+\ket{\psi} = \alpha\underbrace{\ket{0}}_{\bmat{1\\0}} + \beta\underbrace{\ket{1}}_{\bmat{0\\1}} \text{ where } \alpha = \alpha_1 + \alpha_2 i, \;\; \beta = \beta_1 + \beta_2 i
+\end{equation} 
+Well this is all well and good, but we really need another way to visualize this that can get rid of these pesky complex numbers.  This should ring some bells for any of you math enthusiasts out there, it is time to break out some 3d polar coordinates!  In this case, we plan to use the Bloch Sphere.
+
+\pagebreak
+
+\subsubsection{Bloch Sphere Introduction}
+As mentioned above, the Bloch Sphere is a polar coordinate system used to describe quantum particles, while minimizing the complex plane interaction.  I think the easiest way to understand it is to see a picture of it then dive into the math, so check this out:\\
+\\
+\begin{center}
+\includegraphics[scale=.3]{bloch}
+\end{center}
+As you can see, the coordinate system we use for this is $(\underbrace{1}_{\text{Magnitude}},\underbrace{\theta}_{\text{y-axis rotation}},\underbrace{\phi}_{\text{Downward z-direction}})$, as you can see, the highest magnitude of a point is 1, meaning that it lies on the outer rim of the graph, with 100\% of the system "accounted for".  The following two entries in the coordinates will be described in depth as they are much more complicated.
+\paragraph{What is $\psi$ when in polar form?} 
+\begin{equation}
+\begin{split}
+\ket{\psi} &= \C^2 \\
+\ket{\psi} &= \alpha\ket{0} + \beta\ket{1} \\
+\ket{\psi} &= \underbrace{|\alpha| e^{i\gamma_1}}_{\text{Polar form of $\alpha$}}\ket{0}+\underbrace{|\beta| e^{i\gamma_2}}_{\text{Polar form of $\beta$}}\ket{1}\\
+\ket{\psi} &= \boxed{\underbrace{e^{i\gamma_1}}_{\text{Global phase shift}}(|\alpha| \ket{0} + |\beta| \underbrace{e^{i(\gamma_2-\gamma_1})}_{\text{Relative phase shift}}}
+\end{split}
+\end{equation}
+
+\paragraph{What is $\theta, \phi$?} 
+Now that we have the polar form of the state vector $\psi$, we can derive what $\theta$ and $\phi$ are.  Let us first define 
+\begin{equation}
+\underbrace{\theta}_{[0,2\pi]} = \gamma_2 - \gamma_1
+\end{equation} 
+Simplifying what this math is saying is take the global phase shift, set this as the "perspective", then we can look at how far out of phase our $\beta$ is and choose that as our relative phase shift.  This means we can completely eliminate the imaginary component from $alpha$ as we are setting that vector as the point of view.  Now lets find $\phi$.\\
+\\
+Find $\underbrace{\phi}_{[0,\pi]}$ such that $(cos(\frac{\phi}{2}), sin(\frac{theta}{2}) = (|\alpha|, |\beta|)$, that means that 
+\begin{equation}
+\ket{\psi} \underbrace{\approx}_{\text{"Up to a global phase shift"}} cos(\frac{\phi}{2})\ket{0} + sin(\frac{\theta}{2}) e^{i\theta} \ket{1}
+\end{equation}
+
+Lets look at an example of what this equation looks like with actual numbers.
+\begin{example}
+\begin{equation}
+\begin{split}
+\ket{0} &\rightarrow \alpha = 1, \;\; \beta = 0\\
+cos(\frac{\phi}{2}) &= 1 \;\;\;\; sin(\frac{\phi}{2}) = 0\\
+&\rightarrow \phi = 0\\
+&\rightarrow \theta = 0\\
+\ket{0} &\approx (1,0,0)
+\end{split}
+\end{equation}
+
+\begin{equation}
+\begin{split}
+\ket{1} &\rightarrow \alpha = 0, \;\; \beta = 1\\
+cos(\frac{\phi}{2}) &= 0 \;\;\;\; sin(\frac{\phi}{2}) = 1\\
+&\rightarrow \phi = \pi\\
+&\rightarrow \theta = 0\\
+\ket{0} &\approx (1,0,\pi)
+\end{split}
+\end{equation}
+
+As you can see in both of these we do not have any theta, that is because these are both pure states, meaning there is no relative phase shift, or more so it does not matter because we are able to get 0 or 1 from the sin and cos, this will change with states that are in some state of superposition, meaning that relative phase shift matters.
+\end{example}
+
+
+Before we move on lets look at what that looks like on the Bloch Sphere:
+ \begin{center}
+ \includegraphics[scale=.3]{0and1}
+ \end{center}
+ As you can see, they are on the two "north/south" poles on the sphere, further reinforcing why that theta does not matter: because that spin on the y axis would not change how the vector looks! Very interesting!
+
+\pagebreak
+
+\subsection{Quantum Gates}
+Well we know what these particles look like, and we know how they are represented, but we still don't know how to do anything with them!  Good thing we are about to learn about quantum gates.  As we mentioned before, these gates are very important with doing things with the particles, more importantly without collapsing them.  Lets get into it.
+
+\subsubsection{Classical Gate Overview}
+I have little desire to completely rehash classical logic gates, but in general it is something that changes a 0 to a 1, or swap, or clone. A couple quick examples are below.
+
+\begin{example}
+\begin{equation}
+\begin{split}
+I: 0 \rightarrow 0\\
+NOT: 0 \rightarrow 1
+\end{split}
+\end{equation}
+As you can see, the identity passess the value of the bit through, while the not gate flips the value.  This may seem elementary at first but combining these into more complex systems can lead to large and very complex operations.  
+\end{example}
+
+\subsubsection{Quantum Gate Introduction}
+So real quick let us recall what a quantum gate is, it is just a unitary transformation (i.e. unitary matrices applied to our qubits).  Something interesting is because they are unitary transformations, this means that all of these operations can be reversed.  Lets look at a couple common ones.
+
+\begin{example}
+\begin{equation}
+\begin{split}
+U: \ket{0} &\rightarrow \alpha\ket{0} + \beta\ket{1}\\
+\underbrace{\sigma_x = X}_{\text{QNOT}}: \ket{0},\ket{1} &\rightarrow 1\\
+-i\sigma_Y = Y =  \ket{0},\ket{1} &\rightarrow \ket{-1},\ket{0} \\
+\sigma_z = Z =  \ket{0},\ket{1} &\rightarrow \ket{0},\ket{-1}\\
+H =  \ket{0},\ket{1} &\rightarrow \ket{\sigma_x^+},\ket{\sigma_x^-} \\ 
+\end{split}
+\end{equation}
+As you can see we are using the Pauli spin matrices to make these quantum gates, but one of these gates may seem foreign, and rightfully so. "H" is the Hadamard gate, which if you can see, puts the particle into a state of complete superposition.  This is an important gate that is used constantly for this exact purpose.   
+\end{example} 
+
+\pagebreak
+
+\subsubsection{Measuring Qubits}
+\underline{Recall}: Suppose the single qubit system is in state $\ket{x} = a\ket{0} + b\ket{1}$, find the probability the state is $\ket{0}$ (+1 outcome) or $\ket{1}$ (-1 outcome) upon measurement of $\sigma_z$\\
+\underline{Idea}: Let's try and use the spectral projection associated to $\sigma_z = \bmat{1 &0\\ 0 &-1}$:
+\begin{equation}
+\begin{split}
+= 1\underbrace{\ket{0}\bra{0}}_{M_0} + (-1)\underbrace{\ket{1}\bra{1}}_{M_1}\\
+p(0) = a^2 = \bra{x}M_0\ket{x}\\
+p(1) = b^2 = \bra{x}M_1\ket{x}\\
+\end{split}
+\end{equation}
 
 
 
