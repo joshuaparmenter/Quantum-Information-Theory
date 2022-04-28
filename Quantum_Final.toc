@@ -49,4 +49,10 @@
 \contentsline {subsection}{\numberline {4.3}Quantum Gates}{41}{subsection.4.3}%
 \contentsline {subsubsection}{\numberline {4.3.1}Classical Gate Overview}{41}{subsubsection.4.3.1}%
 \contentsline {subsubsection}{\numberline {4.3.2}Quantum Gate Introduction}{41}{subsubsection.4.3.2}%
-\contentsline {subsubsection}{\numberline {4.3.3}Measuring Qubits}{42}{subsubsection.4.3.3}%
+\contentsline {subsubsection}{\numberline {4.3.3}Common Quantum Gates}{41}{subsubsection.4.3.3}%
+\contentsline {subsubsection}{\numberline {4.3.4}Measuring Qubits}{43}{subsubsection.4.3.4}%
+\contentsline {subsubsection}{\numberline {4.3.5}Applying quantum measurements}{43}{subsubsection.4.3.5}%
+\contentsline {paragraph}{BB84 Protocol - Quantum Key Distributions}{43}{section*.7}%
+\contentsline {paragraph}{Detecting collapse, tampering with information}{44}{section*.8}%
+\contentsline {subsection}{\numberline {4.4}Quantum Gates as Density Matrices}{45}{subsection.4.4}%
+\contentsline {section}{\numberline {5}Conclusion and Parting Words}{46}{section.5}%

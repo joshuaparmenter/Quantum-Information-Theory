@@ -397,7 +397,7 @@
 \maketitle
 
 \begin{abstract}
-Will finish this when i actually know what the jeebuz is going on in the class. 
+Quantum Information is a field that is becoming more and more relevant as computers get faster and more intelligent.  This document is designed to be a fast paced, rapid introduction to the concepts necessary to comprehend the math and theories behind the creation, editing, and analysis of quantum bits, especially with a focus on sending and receiving information, or processing large or mathematically intensive computations. 
 \end{abstract}
 
 \tableofcontents
@@ -1647,6 +1647,52 @@ H =  \ket{0},\ket{1} &\rightarrow \ket{\sigma_x^+},\ket{\sigma_x^-} \\
 As you can see we are using the Pauli spin matrices to make these quantum gates, but one of these gates may seem foreign, and rightfully so. "H" is the Hadamard gate, which if you can see, puts the particle into a state of complete superposition.  This is an important gate that is used constantly for this exact purpose.   
 \end{example} 
 
+
+\subsubsection{Common Quantum Gates}
+Below is a list of some of the most common quantum gates that are useful in information transmission.\\
+
+QNOT:
+\begin{equation}
+\begin{split}
+QNOT: &\sigma_x\;(X)\; \bmat{0&12\\1&0}\\
+	  &\ket{0} \rightarrow \ket{1}\\
+	  &\ket{1} \rightarrow \ket{0}\\	  
+\end{split}
+\end{equation}
+
+The next couple need three bits, two bits that are the inputs, then one bit that is the output based off of the two bits.
+\\
+
+QAND:
+\begin{equation}
+\begin{split}
+& \ket{xyz} \rightarrow \bmat{x=y=1,\; \ket{xy \neg z}\\ \text{else } \ket{xyz}}\\
+\end{split}
+\end{equation}
+
+QOR:
+\begin{equation}
+\begin{split}
+      (I \otimes I \otimes X) * &CNOT * (X \otimes X \otimes I)\\
+	  &\ket{00} \rightarrow \ket{00}\\
+	  &\ket{01} \rightarrow \ket{01}\\
+	  &\ket{10} \rightarrow \ket{11}\\
+	  &\ket{11} \rightarrow \ket{10}\\	
+\end{split}
+\end{equation}
+
+Hadamard:
+\begin{equation}
+\begin{split}
+      &\ket{0} \rightarrow \frac{1}{\sqrt{2}}(\ket{0}+\ket{1})\\
+	  &\ket{1} \rightarrow \frac{1}{\sqrt{2}}(\ket{0}-\ket{1})\\	  
+\end{split}
+\end{equation}
+
+
+
+
+
 \pagebreak
 
 \subsubsection{Measuring Qubits}
@@ -1660,14 +1706,58 @@ p(1) = b^2 = \bra{x}M_1\ket{x}\\
 \end{split}
 \end{equation}
 
+\subsubsection{Applying quantum measurements}
+\paragraph{BB84 Protocol - Quantum Key Distributions}
+One of the most prevalent aspects of quantum information currently is through quantum encryption.  The aspect of collapse makes this it impossible for someone to eavesdrop, more on that in the chapter.  For a quick introduction into quantum key distribution, lets look at a protocol developed in 1984, muich before there was a single quantum computer even beginning to be built.  Anyways, lets get into it, let us visualize what a typical communication looks like.
+\\
+\\
+\begin{center}
+ \includegraphics[scale=.3]{aandb}
+\end{center}
 
+We will be using a \textbf{one time pad}, meaning when we get the key we will apply it to our data, flipping bits if it is a one and leaving it the same if not.  Now we can set up the problem.
 
+\begin{itemize}
+\item First, over the classical channel, Alice will communicate to Bob what basis they will be preparing the particles with.  
+\item Bob and Alice then take the stream of qubits (in superposition) and measure each measure them with random basis.  
+\item Next, Bob tells Alice which basis he used to measure all of the different qubits, and if they did not choose the same, Alice secretly throws out those qubits because no information can be gleaned from them.
+\item In the end we should have $\approx N/2$ good qubits (meaning w.r.t. the same basis, 50\% chance.)
+\item If no one was listening, this is it, Alice chooses some number of those good qubits, as they both have the same values as those qubits are entangled, and use that as the one time pad key.  
+\end{itemize}
+This can seem easy enough, and as long as there is no outside person listening this seems fine.  Even if someone was listening, lets say for example on the classical channel, they would not be able to do anything with the information because they never dicuss the outcome of any of the particles.  Eve actually can't even listen on the quantum channel where the information is being sent because if she made a measurement, the particle would collapse!  That means that to make this impossible, like actually mathematically impossible to crack, we need to detect that someone is collapsing the particles.
 
+\paragraph{Detecting collapse, tampering with information}
+To check that someone is listening we will have to sacrifice a certain numbers of our above "good" qubits to check the outcome value to make sure no one collapsed the value and sent the particle on again.  If eve collapsed the particle, the value that Bob reads will differ from what Alice reads.  Alice will choose bits at random and check values, and if there are more than $\frac{N}{4}$ bits, we must retransmit because someone was listening in.  A quick matrix of what this would look like is below.
+\\
+\\
+\begin{center}
+ \includegraphics[scale=.3]{eve}
+\end{center}
 
+As you can see, when Eve measures, Bob receives a 0 even though Alice received a one and vice versa.  These are the bits that are detected in tamper investigation.  \\
+\\
+Apologies for the slightly abbreviated version of this, this is very in depth and many mathematic concepts at play, but I realistically do not have time to spend writing all of those equations down. Please show me mercy.    
 
+\pagebreak
 
+\subsection{Quantum Gates as Density Matrices}
+Something that is always a problem when it comes to quantum information transmission is reliability.  When you are working at the atomic and sometimes subatomic particles, you have to be extremely precise.  What happens if there is any level of noise or inaccuracy in the bits.  Will the quantum logic still apply to the particles?  This is where quantum gates being represented as density martices comes in.  
+\begin{example}
+Suppose we want to send $\ket{11}$ as $\ket{11}$ by applying a CNOT.  80\% of the time $\ket{11}$ is sent, 15\% of the time $(H \otimes I) \ket{10}$ is sent, and 5\% of the time $(H \otimes H)CNOT(H \otimes H)$ is sent.  This means that the vector received is
+\begin{equation}
+0.80CNOT\ket{10} + .15(H \otimes I)\ket{10} + 0.05 CNOT' \ket{10} 
+\end{equation}
+This can be represented in a much simpler manner using density matrices, to do this we must apply some quantum gate U to a vector.  This gives us $\psi \rightarrow U\psi$.
+\begin{theorem} If $\rho$ is a pure state density matrix $\rho = \ket{\psi}\bra{\psi}$ for some $\ket{\psi} \in \C^n$, 
+\begin{equation}
+\rho = \ket{\psi}\bra{\psi} \rightarrow (u\ket{\psi})(u\ket{psi})^\dagger = U\ket{\psi}\bra{\psi}U^\dagger = U\rho U^\dagger
+\end{equation}
+\end{theorem}
+\end{example}
+\pagebreak
 
-
+\section{Conclusion and Parting Words}
+Thank you for spending the time to read through this document, I realize that this may not be the best document by any stretch, and there is still lots of work to make this actually useful to someone who wants to learn, but taking into account that this was completed in tandem with two jobs and developing a satellite, I am actually somewhat satisfied.  Overall, this is a field that is just barely blooming, and this is the math and concepts that are necessary to even begin to comprehend the new research being done in this field.  Please take as much as possible from this, and have as much fun with this as I did in the semester I took this class.  Goodbye! 
 
 
 \end{document}
